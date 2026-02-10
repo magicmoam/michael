@@ -536,66 +536,6 @@
             border-radius: 4px;
         }
 
-        /* Rotate phone overlay */
-        .rotate-prompt {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; right: 0; bottom: 0;
-            background: rgba(0,0,0,0.92);
-            z-index: 9999;
-            justify-content: center;
-            align-items: center;
-            flex-direction: column;
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            font-family: 'Gloria Hallelujah', cursive;
-        }
-
-        .rotate-prompt .rotate-icon {
-            width: 80px;
-            height: 80px;
-            margin-bottom: 1.5rem;
-            animation: rotate-nudge 2s ease-in-out infinite;
-        }
-
-        .rotate-prompt h3 {
-            font-size: 1.8rem;
-            margin-bottom: 0.8rem;
-            color: var(--lemon-yellow);
-        }
-
-        .rotate-prompt p {
-            font-size: 1.2rem;
-            color: #ccc;
-            font-family: 'Indie Flower', cursive;
-        }
-
-        .rotate-prompt .dismiss-btn {
-            margin-top: 1.5rem;
-            padding: 0.6rem 2rem;
-            background: none;
-            border: 2px solid var(--lemon-yellow);
-            color: var(--lemon-yellow);
-            font-family: 'Gloria Hallelujah', cursive;
-            font-size: 1.1rem;
-            cursor: pointer;
-            border-radius: 25px;
-            transition: all 0.2s;
-        }
-
-        .rotate-prompt .dismiss-btn:hover {
-            background: var(--lemon-yellow);
-            color: #181818;
-        }
-
-        @keyframes rotate-nudge {
-            0%, 100% { transform: rotate(0deg); }
-            25% { transform: rotate(90deg); }
-            50% { transform: rotate(90deg); }
-            75% { transform: rotate(0deg); }
-        }
-
         /* Scroll progress dots */
         .scroll-dots {
             display: none;
@@ -696,33 +636,9 @@
             body { overflow-y: hidden; }
         }
 
-        /* Portrait-only rotate prompt */
-        @media (max-width: 768px) and (orientation: portrait) {
-            .rotate-prompt { display: flex; }
-        }
-        @media (max-width: 768px) and (orientation: landscape) {
-            .rotate-prompt { display: none !important; }
-        }
     </style>
 </head>
 <body>
-
-<!-- Rotate phone prompt -->
-<div class="rotate-prompt" id="rotatePrompt">
-    <svg class="rotate-icon" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-        <!-- Phone outline -->
-        <rect x="22" y="10" width="36" height="60" rx="5" fill="none"/>
-        <circle cx="40" cy="62" r="3" fill="white"/>
-        <!-- Curved arrow -->
-        <path d="M65,25 A25,25 0 0,1 65,55" fill="none" stroke="var(--lemon-yellow)" stroke-width="3"/>
-        <polygon points="62,55 68,55 65,61" fill="var(--lemon-yellow)"/>
-    </svg>
-    <h3>Rotate Your Phone!</h3>
-    <p>This sketch is best experienced in landscape mode.<br>Swipe left to read Michael's suffering.</p>
-    <button class="dismiss-btn" onclick="document.getElementById('rotatePrompt').style.display='none'">
-        Fine, I'll read it portrait (E.I.F.)
-    </button>
-</div>
 
 <!-- Scroll progress dots (mobile) -->
 <div class="scroll-dots" id="scrollDots"></div>
