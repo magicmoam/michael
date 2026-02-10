@@ -1,0 +1,1617 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Michael vs. Jury Service: E.I.F.</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Sue+Ellen+Francisco&family=Caveat:wght@400;700&display=swap');
+
+        :root {
+            --bg-mint: #E0EFD5;
+            --lemon-yellow: #FCEFA6;
+            --lemon-dark: #F5D76E;
+            --paper: #FFFCF5;
+            --ink: #181818;
+            --red-pen: #C0392B;
+            --blue-pen: #2471A3;
+            --shadow-offset: 3px;
+            --border-width: 2.5px;
+            --coffee-stain: rgba(139, 90, 43, 0.12);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background-color: var(--bg-mint);
+            font-family: 'Indie Flower', cursive;
+            color: var(--ink);
+            overflow-x: hidden;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
+        }
+
+        .desk-surface {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 2rem;
+            gap: 3rem;
+        }
+
+        /* Title Card */
+        .title-card {
+            background-color: var(--paper);
+            width: 100%;
+            max-width: 850px;
+            position: relative;
+            padding: 3rem 4rem 4rem;
+            border: var(--border-width) solid var(--ink);
+            border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.05);
+            transform: rotate(-1deg);
+            transition: transform 0.3s ease;
+            overflow: visible;
+        }
+
+        .title-card:hover { transform: rotate(0deg) scale(1.01); }
+
+        h1 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 3.8rem;
+            line-height: 1.1;
+            margin: 0 0 0.5rem 0;
+            text-align: center;
+            transform: rotate(-2deg);
+        }
+
+        h1 .highlight {
+            position: relative;
+            z-index: 1;
+            white-space: nowrap;
+        }
+
+        h1 .highlight::after {
+            content: '';
+            position: absolute;
+            bottom: 5px;
+            left: -10px;
+            width: 110%;
+            height: 25px;
+            background: var(--lemon-yellow);
+            z-index: -1;
+            border-radius: 4px;
+            transform: skew(-10deg) rotate(-2deg);
+            opacity: 0.8;
+        }
+
+        .subtitle {
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.8rem;
+            text-align: center;
+            color: var(--red-pen);
+            transform: rotate(1deg);
+            margin-top: 0.5rem;
+        }
+
+        /* Paper Note - scene cards */
+        .paper-note {
+            background-color: var(--paper);
+            width: 100%;
+            max-width: 850px;
+            position: relative;
+            padding: 3rem 4rem;
+            border: var(--border-width) solid var(--ink);
+            border-radius: 2px 255px 3px 25px / 255px 5px 225px 3px;
+            box-shadow: 10px 10px 0px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.05);
+            transform: rotate(0.5deg);
+            transition: transform 0.3s ease;
+        }
+
+        .paper-note:nth-child(odd) { transform: rotate(-0.8deg); }
+        .paper-note:nth-child(3n) { transform: rotate(1.2deg); }
+        .paper-note:hover { transform: rotate(0deg) scale(1.01); }
+
+        h2 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2.2rem;
+            margin-bottom: 1.5rem;
+            display: inline-block;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--ink);
+            border-radius: 0 0 100% 0;
+        }
+
+        .act-label {
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.3rem;
+            color: var(--red-pen);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        p {
+            font-size: 1.45rem;
+            line-height: 1.6;
+            margin-bottom: 1.2rem;
+        }
+
+        .dialogue {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+            padding-left: 1.5rem;
+            border-left: 3px solid var(--lemon-dark);
+        }
+
+        .dialogue .speaker {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-weight: bold;
+            font-size: 1.1rem;
+            display: block;
+            margin-bottom: 0.2rem;
+        }
+
+        .dialogue .speaker.michael { color: var(--blue-pen); }
+        .dialogue .speaker.other { color: var(--red-pen); }
+        .dialogue .speaker.narrator { color: #666; font-style: italic; }
+
+        .stage-direction {
+            font-style: italic;
+            color: #777;
+            font-size: 1.2rem;
+            text-align: center;
+            margin: 1.5rem 0;
+            font-family: 'Caveat', cursive;
+        }
+
+        .handwritten-highlight {
+            background-image: linear-gradient(to right, rgba(252, 239, 166, 0.8), rgba(252, 239, 166, 0.6));
+            padding: 0 5px;
+            box-decoration-break: clone;
+            -webkit-box-decoration-break: clone;
+            border-radius: 3px;
+        }
+
+        .crossed-out {
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .scribble-note {
+            font-family: 'Sue Ellen Francisco', cursive;
+            color: var(--red-pen);
+            font-size: 1.3rem;
+            transform: rotate(-3deg);
+            display: inline-block;
+            margin-left: 0.5rem;
+        }
+
+        /* Scene illustration */
+        .scene-illustration {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 2rem auto;
+            padding: 1.5rem;
+            max-width: 500px;
+        }
+
+        /* Polaroid grid */
+        .memory-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .polaroid {
+            background: white;
+            padding: 1rem 1rem 2.5rem 1rem;
+            border: var(--border-width) solid var(--ink);
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.15);
+            transform: rotate(2deg);
+            transition: all 0.2s ease;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .polaroid:nth-child(even) { transform: rotate(-1.5deg); }
+        .polaroid:nth-child(3) { transform: rotate(3deg); }
+        .polaroid:hover {
+            transform: scale(1.05) rotate(0deg) !important;
+            box-shadow: 8px 8px 0px rgba(0,0,0,0.1);
+            z-index: 10;
+        }
+
+        .polaroid-img {
+            background-color: var(--lemon-yellow);
+            height: 160px;
+            width: 100%;
+            border: 2px solid var(--ink);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .polaroid-caption {
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.4rem;
+            color: #444;
+        }
+
+        /* Stickers */
+        .sticker {
+            position: absolute;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .sticker-top-left {
+            top: -35px;
+            left: -35px;
+            width: 110px;
+        }
+
+        .sticker-top-right {
+            top: -25px;
+            right: -25px;
+            width: 90px;
+        }
+
+        .sticker-bottom-right {
+            bottom: -30px;
+            right: -20px;
+            width: 100px;
+        }
+
+        .sticker-bottom-left {
+            bottom: -25px;
+            left: -15px;
+            width: 85px;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px) rotate(-15deg); }
+            50% { transform: translateY(-10px) rotate(-12deg); }
+            100% { transform: translateY(0px) rotate(-15deg); }
+        }
+
+        @keyframes wiggle {
+            0%, 100% { transform: rotate(-3deg); }
+            50% { transform: rotate(3deg); }
+        }
+
+        @keyframes blink {
+            0%, 48%, 52%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        .floating { animation: float 4s ease-in-out infinite; }
+        .wiggling { animation: wiggle 2s ease-in-out infinite; }
+
+        /* Coffee stain */
+        .coffee-stain {
+            position: absolute;
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            background: radial-gradient(ellipse, transparent 55%, var(--coffee-stain) 56%, var(--coffee-stain) 70%, transparent 71%);
+            pointer-events: none;
+            opacity: 0.7;
+        }
+
+        /* Countdown timer / boredom meter */
+        .boredom-meter {
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            padding: 1.5rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .meter-bar {
+            height: 30px;
+            background: #eee;
+            border: 2px solid var(--ink);
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+
+        .meter-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--lemon-yellow), #FF6B6B, var(--red-pen));
+            border-radius: 15px;
+            transition: width 2s ease;
+        }
+
+        .meter-label {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.1rem;
+        }
+
+        /* Waiting room number */
+        .ticket-number {
+            display: inline-block;
+            background: var(--lemon-yellow);
+            border: 2px solid var(--ink);
+            padding: 0.8rem 1.5rem;
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2.5rem;
+            transform: rotate(-2deg);
+            box-shadow: 3px 3px 0 var(--ink);
+            margin: 1rem 0;
+        }
+
+        /* Action button */
+        .action-btn {
+            display: inline-block;
+            background: var(--lemon-yellow);
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.5rem;
+            padding: 1rem 3rem;
+            border: var(--border-width) solid var(--ink);
+            border-radius: 255px 15px 225px 15px / 15px 225px 15px 255px;
+            cursor: pointer;
+            text-decoration: none;
+            color: var(--ink);
+            transition: all 0.1s ease;
+            box-shadow: 4px 4px 0 var(--ink);
+            margin-top: 1.5rem;
+            width: 100%;
+            text-align: center;
+        }
+
+        .action-btn:hover {
+            background: #FFF5CC;
+            transform: translate(-1px, -1px);
+            box-shadow: 6px 6px 0 var(--ink);
+        }
+
+        .action-btn:active {
+            transform: translate(4px, 4px);
+            box-shadow: 0px 0px 0 var(--ink);
+        }
+
+        /* Thought bubble */
+        .thought-bubble {
+            position: relative;
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 50px;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem auto;
+            max-width: 400px;
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+        }
+
+        .thought-bubble::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 60px;
+            width: 15px;
+            height: 15px;
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+        }
+
+        .thought-bubble::after {
+            content: '';
+            position: absolute;
+            bottom: -35px;
+            left: 45px;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border: 2px solid var(--ink);
+            border-radius: 50%;
+        }
+
+        /* Tape strips */
+        .tape {
+            position: absolute;
+            width: 120px;
+            height: 30px;
+            background: rgba(252, 239, 166, 0.6);
+            border: 1px solid rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+
+        .tape-top { top: -10px; left: 50%; transform: translateX(-50%) rotate(-3deg); }
+        .tape-corner { top: -5px; right: 20px; transform: rotate(35deg); width: 80px; }
+
+        /* Evidence board */
+        .evidence-board {
+            background: #8B5E3C;
+            border: 4px solid #5C3A1E;
+            padding: 2rem;
+            border-radius: 4px;
+            margin: 2rem 0;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            position: relative;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.3);
+        }
+
+        .evidence-item {
+            background: var(--paper);
+            padding: 1rem;
+            border: 1px solid var(--ink);
+            transform: rotate(var(--rot, 2deg));
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .evidence-item:nth-child(2) { --rot: -1.5deg; }
+        .evidence-item:nth-child(3) { --rot: 1deg; }
+        .evidence-item:nth-child(4) { --rot: -2.5deg; }
+
+        .evidence-label {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 0.9rem;
+            color: var(--red-pen);
+            text-transform: uppercase;
+        }
+
+        .string-line {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            pointer-events: none;
+        }
+
+        /* Final card */
+        .verdict-card {
+            background: var(--lemon-yellow);
+            border: 3px solid var(--ink);
+            padding: 2rem 3rem;
+            text-align: center;
+            margin: 2rem 0;
+            transform: rotate(-1deg);
+            box-shadow: 5px 5px 0 var(--ink);
+        }
+
+        .verdict-card h3 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* LIVE banner */
+        .live-banner {
+            background: var(--red-pen);
+            color: white;
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.1rem;
+            text-align: center;
+            padding: 0.6rem 1rem;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            letter-spacing: 2px;
+        }
+
+        .live-dot {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: #FF6B6B;
+            border-radius: 50%;
+            margin-right: 8px;
+            animation: pulse-dot 1.5s ease-in-out infinite;
+        }
+
+        @keyframes pulse-dot {
+            0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(255,107,107,0.7); }
+            50% { opacity: 0.6; box-shadow: 0 0 0 8px rgba(255,107,107,0); }
+        }
+
+        .desk-surface { padding-top: 5rem; }
+
+        /* EIF stamp */
+        .eif-stamp {
+            position: absolute;
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 3rem;
+            color: var(--red-pen);
+            border: 4px solid var(--red-pen);
+            padding: 0.3rem 1rem;
+            transform: rotate(-15deg);
+            opacity: 0.25;
+            pointer-events: none;
+            letter-spacing: 5px;
+            border-radius: 4px;
+        }
+
+        /* Rotate phone overlay */
+        .rotate-prompt {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: rgba(0,0,0,0.92);
+            z-index: 9999;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            font-family: 'Gloria Hallelujah', cursive;
+        }
+
+        .rotate-prompt .rotate-icon {
+            width: 80px;
+            height: 80px;
+            margin-bottom: 1.5rem;
+            animation: rotate-nudge 2s ease-in-out infinite;
+        }
+
+        .rotate-prompt h3 {
+            font-size: 1.8rem;
+            margin-bottom: 0.8rem;
+            color: var(--lemon-yellow);
+        }
+
+        .rotate-prompt p {
+            font-size: 1.2rem;
+            color: #ccc;
+            font-family: 'Indie Flower', cursive;
+        }
+
+        .rotate-prompt .dismiss-btn {
+            margin-top: 1.5rem;
+            padding: 0.6rem 2rem;
+            background: none;
+            border: 2px solid var(--lemon-yellow);
+            color: var(--lemon-yellow);
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.1rem;
+            cursor: pointer;
+            border-radius: 25px;
+            transition: all 0.2s;
+        }
+
+        .rotate-prompt .dismiss-btn:hover {
+            background: var(--lemon-yellow);
+            color: #181818;
+        }
+
+        @keyframes rotate-nudge {
+            0%, 100% { transform: rotate(0deg); }
+            25% { transform: rotate(90deg); }
+            50% { transform: rotate(90deg); }
+            75% { transform: rotate(0deg); }
+        }
+
+        /* Scroll progress dots */
+        .scroll-dots {
+            display: none;
+            position: fixed;
+            bottom: 15px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 998;
+            gap: 8px;
+        }
+
+        .scroll-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: rgba(0,0,0,0.2);
+            border: 1.5px solid var(--ink);
+            transition: all 0.3s;
+        }
+
+        .scroll-dot.active {
+            background: var(--red-pen);
+            transform: scale(1.3);
+        }
+
+        /* Swipe hint */
+        .swipe-hint {
+            display: none;
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: #666;
+            z-index: 997;
+            animation: swipe-fade 3s ease-in-out infinite;
+        }
+
+        @keyframes swipe-fade {
+            0%, 100% { opacity: 0.4; transform: translateX(-50%); }
+            50% { opacity: 1; transform: translateX(-60%); }
+        }
+
+        /* Responsive - MOBILE HORIZONTAL SCROLL */
+        @media (max-width: 768px) {
+            .live-banner { font-size: 0.75rem; padding: 0.4rem 0.5rem; letter-spacing: 1px; }
+            .desk-surface {
+                flex-direction: row;
+                overflow-x: auto;
+                overflow-y: hidden;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                padding: 3.5rem 0 3rem 0;
+                gap: 0;
+                height: 100vh;
+                align-items: stretch;
+            }
+            .paper-note, .title-card {
+                scroll-snap-align: center;
+                min-width: 88vw;
+                max-width: 88vw;
+                width: 88vw;
+                flex-shrink: 0;
+                margin: 0 6vw;
+                padding: 1.8rem 1.5rem;
+                height: auto;
+                max-height: calc(100vh - 6rem);
+                overflow-y: auto;
+                transform: none !important;
+            }
+            .paper-note:first-child, .title-card:first-child { margin-left: 6vw; }
+            .paper-note:last-child { margin-right: 6vw; }
+            h1 { font-size: 2.2rem; transform: rotate(-1deg); }
+            h2 { font-size: 1.6rem; }
+            p { font-size: 1.15rem; }
+            .dialogue { font-size: 1.1rem; }
+            .stage-direction { font-size: 1rem; }
+            .subtitle { font-size: 1.3rem; }
+            .evidence-board { grid-template-columns: 1fr; padding: 1rem; gap: 0.8rem; }
+            .memory-grid { grid-template-columns: 1fr 1fr; gap: 1rem; }
+            .polaroid { padding: 0.6rem 0.6rem 1.8rem; }
+            .polaroid-img { height: 100px; }
+            .polaroid-caption { font-size: 1.1rem; }
+            .scene-illustration { padding: 0.5rem; margin: 1rem auto; }
+            .scene-illustration svg { max-width: 100%; height: auto; }
+            .thought-bubble { max-width: 90%; padding: 1rem 1.2rem; font-size: 1.2rem; }
+            .sticker { display: none; }
+            .eif-stamp { font-size: 1.8rem !important; }
+            .ticket-number { font-size: 1.8rem; }
+            .boredom-meter { padding: 1rem; }
+            .meter-label { font-size: 0.9rem; }
+            .verdict-card { padding: 1.2rem 1.5rem; }
+            .verdict-card h3 { font-size: 1.8rem; }
+            .action-btn { font-size: 1.2rem; padding: 0.8rem 1.5rem; }
+            .scroll-dots { display: flex; }
+            .swipe-hint { display: block; }
+            body { overflow-y: hidden; }
+        }
+
+        /* Portrait-only rotate prompt */
+        @media (max-width: 768px) and (orientation: portrait) {
+            .rotate-prompt { display: flex; }
+        }
+        @media (max-width: 768px) and (orientation: landscape) {
+            .rotate-prompt { display: none !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Rotate phone prompt -->
+<div class="rotate-prompt" id="rotatePrompt">
+    <svg class="rotate-icon" viewBox="0 0 80 80" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Phone outline -->
+        <rect x="22" y="10" width="36" height="60" rx="5" fill="none"/>
+        <circle cx="40" cy="62" r="3" fill="white"/>
+        <!-- Curved arrow -->
+        <path d="M65,25 A25,25 0 0,1 65,55" fill="none" stroke="var(--lemon-yellow)" stroke-width="3"/>
+        <polygon points="62,55 68,55 65,61" fill="var(--lemon-yellow)"/>
+    </svg>
+    <h3>Rotate Your Phone!</h3>
+    <p>This sketch is best experienced in landscape mode.<br>Swipe left to read Michael's suffering.</p>
+    <button class="dismiss-btn" onclick="document.getElementById('rotatePrompt').style.display='none'">
+        Fine, I'll read it portrait (E.I.F.)
+    </button>
+</div>
+
+<!-- Scroll progress dots (mobile) -->
+<div class="scroll-dots" id="scrollDots"></div>
+<div class="swipe-hint" id="swipeHint">swipe to see Michael suffer &#8594;</div>
+
+<div class="live-banner">
+    <span class="live-dot"></span> LIVE FROM GIBRALTAR — MICHAEL IS AT JURY SERVICE RIGHT NOW — 10 FEB 2026 — E.I.F.
+</div>
+
+<div class="desk-surface">
+
+    <!-- ============ TITLE CARD ============ -->
+    <div class="title-card">
+        <div class="eif-stamp" style="top: 60px; right: 30px;">E.I.F.</div>
+        <div class="sticker sticker-top-left floating">
+            <!-- Gavel sticker -->
+            <svg viewBox="0 0 100 100" fill="none" stroke="#181818" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="25" y="15" width="40" height="25" rx="4" fill="#D4A574" stroke="#181818"/>
+                <rect x="40" y="40" width="10" height="35" rx="2" fill="#C4956A" stroke="#181818"/>
+                <line x1="20" y1="80" x2="70" y2="80" stroke="#181818" stroke-width="4"/>
+                <ellipse cx="45" cy="82" rx="28" ry="6" fill="rgba(0,0,0,0.1)" stroke="none"/>
+                <!-- Impact lines -->
+                <line x1="15" y1="70" x2="10" y2="60" stroke="#C0392B" stroke-width="2"/>
+                <line x1="75" y1="70" x2="80" y2="60" stroke="#C0392B" stroke-width="2"/>
+                <line x1="45" y1="10" x2="45" y2="3" stroke="#C0392B" stroke-width="2"/>
+            </svg>
+        </div>
+
+        <div class="tape tape-top"></div>
+
+        <h1>Michael vs. <span class="highlight">Jury Service</span></h1>
+        <p class="subtitle">A Tragedy Unfolding LIVE from Gibraltar — 10th February 2026</p>
+        <p style="text-align:center; font-size:1.6rem; color:var(--red-pen); margin-top:0.8rem; font-family:'Gloria Hallelujah';">
+            E.I.F.
+        </p>
+        <p style="text-align:center; font-size:1.1rem; color:#777; margin-top:0.2rem;">
+            <em>(Everything Is Fucked)</em>
+        </p>
+        <p style="text-align:center; font-size:1.2rem; color:#777; margin-top:0.5rem;">
+            <em>"I could've just said I was racist." — Michael, probably</em>
+        </p>
+
+        <!-- Michael cartoon sitting sad -->
+        <div class="scene-illustration">
+            <svg viewBox="0 0 300 220" fill="none" stroke="#181818" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="300">
+                <!-- Chair -->
+                <rect x="90" y="140" width="120" height="10" rx="3" fill="#D4A574" stroke="#181818"/>
+                <line x1="100" y1="150" x2="95" y2="200" stroke="#181818" stroke-width="3"/>
+                <line x1="200" y1="150" x2="205" y2="200" stroke="#181818" stroke-width="3"/>
+                <rect x="85" y="90" width="10" height="60" rx="3" fill="#D4A574" stroke="#181818"/>
+                <!-- Michael's body -->
+                <ellipse cx="150" cy="125" rx="35" ry="25" fill="#6BA3D6" stroke="#181818"/> <!-- torso/shirt -->
+                <!-- Arms slumped -->
+                <path d="M115,120 Q95,140 100,155" stroke="#181818" fill="none" stroke-width="2.5"/>
+                <path d="M185,120 Q205,140 200,155" stroke="#181818" fill="none" stroke-width="2.5"/>
+                <!-- Hands drooping -->
+                <circle cx="100" cy="158" r="6" fill="#F5CBA7" stroke="#181818"/>
+                <circle cx="200" cy="158" r="6" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Neck -->
+                <line x1="150" y1="100" x2="150" y2="90" stroke="#F5CBA7" stroke-width="6"/>
+                <!-- Head -->
+                <circle cx="150" cy="65" r="30" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Sad face -->
+                <circle cx="140" cy="60" r="3" fill="#181818"/> <!-- left eye -->
+                <circle cx="160" cy="60" r="3" fill="#181818"/> <!-- right eye -->
+                <path d="M138,78 Q150,72 162,78" stroke="#181818" stroke-width="2" fill="none"/> <!-- frown -->
+                <!-- Hair -->
+                <path d="M120,50 Q125,25 150,30 Q175,25 180,50" stroke="#3D2B1F" stroke-width="3" fill="#3D2B1F"/>
+                <!-- Thought lines (boredom) -->
+                <line x1="185" y1="40" x2="195" y2="35" stroke="#999" stroke-width="1.5"/>
+                <line x1="188" y1="50" x2="200" y2="48" stroke="#999" stroke-width="1.5"/>
+                <line x1="186" y1="60" x2="198" y2="62" stroke="#999" stroke-width="1.5"/>
+                <!-- Legs -->
+                <line x1="135" y1="148" x2="125" y2="190" stroke="#333" stroke-width="4"/>
+                <line x1="165" y1="148" x2="175" y2="190" stroke="#333" stroke-width="4"/>
+                <!-- Shoes -->
+                <ellipse cx="120" cy="195" rx="12" ry="6" fill="#333" stroke="#181818"/>
+                <ellipse cx="180" cy="195" rx="12" ry="6" fill="#333" stroke="#181818"/>
+                <!-- Number ticket in hand -->
+                <rect x="190" y="148" width="25" height="15" fill="var(--lemon-yellow)" stroke="#181818" stroke-width="1.5"/>
+                <text x="196" y="160" font-size="8" font-family="'Gloria Hallelujah'" fill="#181818">247</text>
+            </svg>
+        </div>
+
+        <div class="sticker sticker-bottom-right">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round">
+                <!-- Scales of justice -->
+                <line x1="50" y1="15" x2="50" y2="70" stroke="#181818" stroke-width="3"/>
+                <line x1="20" y1="30" x2="80" y2="30" stroke="#181818" stroke-width="3"/>
+                <path d="M15,50 Q20,35 25,50 Z" fill="var(--lemon-yellow)" stroke="#181818"/>
+                <path d="M75,45 Q80,30 85,45 Z" fill="var(--lemon-yellow)" stroke="#181818"/>
+                <line x1="20" y1="30" x2="20" y2="47" stroke="#181818"/>
+                <line x1="80" y1="30" x2="80" y2="42" stroke="#181818"/>
+                <rect x="42" y="70" width="16" height="8" rx="2" fill="#D4A574" stroke="#181818"/>
+                <!-- The scales are tipped -->
+                <text x="12" y="65" font-size="8" font-family="'Indie Flower'">E.I.F.</text>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ============ ACT I: THE SUMMONS ============ -->
+    <div class="paper-note">
+        <div class="coffee-stain" style="top: 20px; right: 40px;"></div>
+
+        <span class="act-label">Act I</span>
+        <h2>The Summons</h2>
+
+        <p class="stage-direction">~ Interior: Michael's flat in Gibraltar. Three weeks ago. A perfectly good Tuesday — 28°C, sun blazing, the Rock glistening — his last good day on earth. ~</p>
+
+        <div class="scene-illustration">
+            <svg viewBox="0 0 320 200" fill="none" stroke="#181818" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" width="320">
+                <!-- Letterbox / door -->
+                <rect x="100" y="20" width="120" height="170" rx="3" fill="#D4A574" stroke="#181818" stroke-width="3"/>
+                <rect x="110" y="30" width="100" height="60" rx="2" fill="#A67B5B" stroke="#181818"/>
+                <!-- Letterbox slot -->
+                <rect x="130" y="105" width="60" height="10" rx="2" fill="#2C2C2C" stroke="#181818"/>
+                <!-- Letter poking through -->
+                <rect x="125" y="95" width="70" height="20" rx="1" fill="white" stroke="#181818" stroke-width="2">
+                    <animateTransform attributeName="transform" type="translate" values="0,0;0,-3;0,0" dur="2s" repeatCount="indefinite"/>
+                </rect>
+                <text x="135" y="108" font-size="6" font-family="sans-serif" fill="#C0392B" font-weight="bold">GIB COURTS</text>
+                <!-- Door handle -->
+                <circle cx="195" cy="110" r="6" fill="#C4956A" stroke="#181818"/>
+                <!-- Doom rays from letter -->
+                <line x1="160" y1="85" x2="160" y2="70" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="3,3">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="145" y1="88" x2="135" y2="75" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="3,3">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="175" y1="88" x2="185" y2="75" stroke="#C0392B" stroke-width="1.5" stroke-dasharray="3,3">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1.2s" repeatCount="indefinite"/>
+                </line>
+                <!-- Michael's shocked face peeking -->
+                <circle cx="55" cy="120" r="25" fill="#F5CBA7" stroke="#181818"/>
+                <circle cx="48" cy="115" r="4" fill="#181818"/> <!-- eye -->
+                <circle cx="62" cy="115" r="4" fill="#181818"/> <!-- eye -->
+                <ellipse cx="55" cy="132" rx="6" ry="8" fill="#181818"/> <!-- shocked mouth -->
+                <path d="M30,100 Q35,80 55,90 Q75,80 80,100" stroke="#3D2B1F" stroke-width="3" fill="#3D2B1F"/>
+                <!-- Sweat drops -->
+                <ellipse cx="82" cy="110" rx="3" ry="5" fill="#85C1E9" stroke="none">
+                    <animate attributeName="cy" values="110;120;110" dur="1.5s" repeatCount="indefinite"/>
+                </ellipse>
+                <!-- Body -->
+                <rect x="35" y="145" width="40" height="40" rx="5" fill="#6BA3D6" stroke="#181818"/>
+            </svg>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            It arrived on a Tuesday. In Gibraltar. A place so small that the postman knows your name, your mum's name, and what you had for dinner. Nobody has ever received a jury summons on a Friday. That's science. Michael, a man who already believes the world is a burning skip fire, now had proof — hand-delivered to his door within 6.7 square kilometres of paradise.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(opening the letter)</em> Bills... junk... pizza menu — oh, saving that — and... <span class="handwritten-highlight">what. is. this.</span>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            "You are hereby summoned to attend for jury service..." <br>
+            <em>(long pause)</em> <br>
+            Of course. Of COURSE. Everything is fucked. <span class="handwritten-highlight">E.I.F.</span>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            This is how it ends for me. Not with a bang, not with a whimper, but with a <em>letter from the Gibraltar Courts</em>. I live on a rock. A literal rock. In the Mediterranean. And they STILL found me. You can't hide from the system. Not even on a rock. Especially not on a rock with 34,000 people where everyone knows your business.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            He hadn't done anything wrong. That's not how jury service works. But Michael — a man whose default emotional setting is "funeral" — took it as confirmation that the universe is, in his words, fundamentally broken. Also, in Gibraltar, the jury pool is so small there's a genuine chance he'll know the defendant. Or the judge. Or both.
+        </div>
+
+        <div class="thought-bubble">
+            I could flee to Spain. It's literally right there. I can SEE it from my window. But that's probably illegal. E.I.F.
+        </div>
+    </div>
+
+    <!-- ============ ACT II: THE PREPARATION ============ -->
+    <div class="paper-note">
+        <span class="act-label">Act II</span>
+        <h2>The "Preparation"</h2>
+
+        <p class="stage-direction">~ Last night. Michael's flat looks like the lair of a man writing his last will and testament. ~</p>
+
+        <p>Michael spent the entire night before Googling, in the manner of a man preparing for his own execution:</p>
+
+        <div class="evidence-board">
+            <svg class="string-line" viewBox="0 0 400 300">
+                <line x1="100" y1="70" x2="300" y2="80" stroke="#C0392B" stroke-width="1"/>
+                <line x1="100" y1="70" x2="100" y2="230" stroke="#C0392B" stroke-width="1"/>
+                <line x1="300" y1="80" x2="300" y2="220" stroke="#C0392B" stroke-width="1"/>
+            </svg>
+            <div class="evidence-item">
+                <div class="evidence-label">Exhibit A</div>
+                <p style="font-size:1.1rem; margin:0.5rem 0 0">"how to get out of jury duty gibraltar without lying"</p>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-label">Exhibit B</div>
+                <p style="font-size:1.1rem; margin:0.5rem 0 0">"can I say I know the defendant gibraltar everyone knows everyone"</p>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-label">Exhibit C</div>
+                <p style="font-size:1.1rem; margin:0.5rem 0 0">"has anyone ever died of boredom in a courtroom legally"</p>
+            </div>
+            <div class="evidence-item">
+                <div class="evidence-label">Exhibit D</div>
+                <p style="font-size:1.1rem; margin:0.5rem 0 0">"if I walk to spain during lunch break is that contempt of court"</p>
+            </div>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            What do you even wear to something like this? What says "I'm a responsible citizen" but also "I'm dead inside and I know the world is ending"?
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(holds up a Hawaiian shirt)</em> No. Too hopeful. Too much "things are going to be okay" energy. Things are not going to be okay. E.I.F.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            He went with a plain blue shirt. He ironed it twice. He's never ironed anything twice. Including this shirt. This was its first ever ironing. Both times. He ironed it like a man pressing his own burial shroud.
+        </div>
+
+        <!-- Outfit polaroids -->
+        <div class="memory-grid">
+            <div class="polaroid">
+                <div class="polaroid-img" style="background:#FFE4E1;">
+                    <svg viewBox="0 0 100 120" width="70" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round">
+                        <!-- Hawaiian shirt -->
+                        <path d="M25,30 L25,100 L75,100 L75,30 L60,20 Q50,30 40,20 Z" fill="#FF6B6B" stroke="#181818"/>
+                        <circle cx="35" cy="50" r="5" fill="#FFD93D" stroke="none"/>
+                        <circle cx="55" cy="60" r="4" fill="#6BCB77" stroke="none"/>
+                        <circle cx="45" cy="80" r="5" fill="#4D96FF" stroke="none"/>
+                        <circle cx="65" cy="45" r="3" fill="#FF6B6B" stroke="none"/>
+                        <!-- X mark -->
+                        <line x1="15" y1="15" x2="85" y2="105" stroke="#C0392B" stroke-width="4"/>
+                        <line x1="85" y1="15" x2="15" y2="105" stroke="#C0392B" stroke-width="4"/>
+                    </svg>
+                </div>
+                <div class="polaroid-caption">Too much</div>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img" style="background:#E8F4FD;">
+                    <svg viewBox="0 0 100 120" width="70" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round">
+                        <!-- Suit -->
+                        <path d="M20,30 L20,100 L80,100 L80,30 L65,20 Q50,35 35,20 Z" fill="#2C3E50" stroke="#181818"/>
+                        <path d="M45,30 L50,100" stroke="#181818" stroke-width="1"/>
+                        <line x1="50" y1="20" x2="50" y2="35" stroke="#C0392B" stroke-width="3"/>
+                        <!-- Too much text -->
+                        <text x="12" y="115" font-size="9" font-family="'Indie Flower'" fill="#C0392B">sus</text>
+                    </svg>
+                </div>
+                <div class="polaroid-caption">Too sus</div>
+            </div>
+            <div class="polaroid">
+                <div class="polaroid-img" style="background:#E8F8E8;">
+                    <svg viewBox="0 0 100 120" width="70" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round">
+                        <!-- Plain blue shirt -->
+                        <path d="M25,30 L25,100 L75,100 L75,30 L60,20 Q50,30 40,20 Z" fill="#6BA3D6" stroke="#181818"/>
+                        <!-- Collar -->
+                        <path d="M40,20 L50,35 L60,20" fill="#5B93C6" stroke="#181818"/>
+                        <!-- Buttons -->
+                        <circle cx="50" cy="45" r="2" fill="#181818"/>
+                        <circle cx="50" cy="60" r="2" fill="#181818"/>
+                        <circle cx="50" cy="75" r="2" fill="#181818"/>
+                        <!-- Check mark -->
+                        <path d="M70,10 L80,20 L95,0" stroke="#27AE60" stroke-width="4" fill="none"/>
+                    </svg>
+                </div>
+                <div class="polaroid-caption">The chosen one</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ============ ACT III: THE WAITING ROOM ============ -->
+    <div class="paper-note">
+        <div class="tape tape-corner"></div>
+        <div class="eif-stamp" style="bottom: 40px; right: 20px; font-size:2.5rem; opacity:0.15;">E.I.F.</div>
+
+        <span class="act-label">Act III — HAPPENING NOW</span>
+        <h2>The Waiting Room</h2>
+
+        <p class="stage-direction">~ Interior: Gibraltar Supreme Court. RIGHT NOW. TODAY. The waiting room. Also known as Purgatory with vending machines. 28°C and sunny outside. Michael is IN there as you read this, metres from the beach. ~</p>
+
+        <div class="scene-illustration">
+            <svg viewBox="0 0 400 250" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="400">
+                <!-- Room -->
+                <rect x="10" y="10" width="380" height="230" fill="#F5F0E1" stroke="#181818" stroke-width="2"/>
+                <!-- Clock on wall -->
+                <circle cx="200" cy="45" r="20" fill="white" stroke="#181818" stroke-width="2"/>
+                <line x1="200" y1="45" x2="200" y2="32" stroke="#181818" stroke-width="2"/>
+                <line x1="200" y1="45" x2="210" y2="42" stroke="#181818" stroke-width="1.5">
+                    <animateTransform attributeName="transform" type="rotate" from="0 200 45" to="360 200 45" dur="60s" repeatCount="indefinite"/>
+                </line>
+                <!-- "JURY WAITING ROOM" sign -->
+                <rect x="120" y="68" width="160" height="18" fill="var(--lemon-yellow)" stroke="#181818"/>
+                <text x="125" y="81" font-size="8" font-family="sans-serif" fill="#181818" font-weight="bold">GIB SUPREME COURT</text>
+
+                <!-- Row of chairs -->
+                <!-- Chair 1 - sleeping person -->
+                <rect x="30" y="150" width="40" height="6" rx="2" fill="#D4A574" stroke="#181818" stroke-width="1.5"/>
+                <line x1="35" y1="156" x2="33" y2="180" stroke="#181818" stroke-width="2"/>
+                <line x1="65" y1="156" x2="67" y2="180" stroke="#181818" stroke-width="2"/>
+                <circle cx="50" cy="125" r="12" fill="#F5CBA7" stroke="#181818"/>
+                <line x1="44" y1="124" x2="48" y2="124" stroke="#181818" stroke-width="1.5"/><!-- closed eye -->
+                <line x1="52" y1="124" x2="56" y2="124" stroke="#181818" stroke-width="1.5"/><!-- closed eye -->
+                <text x="65" y="115" font-size="14" fill="#999">z z z</text>
+                <ellipse cx="50" cy="140" rx="12" ry="10" fill="#85C1E9" stroke="#181818"/>
+
+                <!-- Chair 2 - MICHAEL (stressed) -->
+                <rect x="110" y="150" width="40" height="6" rx="2" fill="#D4A574" stroke="#181818" stroke-width="1.5"/>
+                <line x1="115" y1="156" x2="113" y2="180" stroke="#181818" stroke-width="2"/>
+                <line x1="145" y1="156" x2="147" y2="180" stroke="#181818" stroke-width="2"/>
+                <circle cx="130" cy="115" r="14" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Wide anxious eyes -->
+                <circle cx="125" cy="112" r="3.5" fill="#181818"/>
+                <circle cx="135" cy="112" r="3.5" fill="#181818"/>
+                <circle cx="126" cy="111" r="1" fill="white"/>
+                <circle cx="136" cy="111" r="1" fill="white"/>
+                <!-- Worried mouth -->
+                <path d="M124,122 Q130,118 136,122" stroke="#181818" stroke-width="1.5" fill="none"/>
+                <!-- Hair -->
+                <path d="M116,105 Q120,92 130,95 Q140,92 144,105" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="2"/>
+                <!-- Blue shirt -->
+                <ellipse cx="130" cy="140" rx="14" ry="12" fill="#6BA3D6" stroke="#181818"/>
+                <!-- Vibrating/stress lines -->
+                <line x1="105" y1="110" x2="100" y2="108" stroke="#C0392B" stroke-width="1">
+                    <animate attributeName="opacity" values="1;0;1" dur="0.5s" repeatCount="indefinite"/>
+                </line>
+                <line x1="155" y1="108" x2="160" y2="106" stroke="#C0392B" stroke-width="1">
+                    <animate attributeName="opacity" values="0;1;0" dur="0.5s" repeatCount="indefinite"/>
+                </line>
+
+                <!-- Chair 3 - person reading -->
+                <rect x="190" y="150" width="40" height="6" rx="2" fill="#D4A574" stroke="#181818" stroke-width="1.5"/>
+                <line x1="195" y1="156" x2="193" y2="180" stroke="#181818" stroke-width="2"/>
+                <line x1="225" y1="156" x2="227" y2="180" stroke="#181818" stroke-width="2"/>
+                <circle cx="210" cy="120" r="12" fill="#F5CBA7" stroke="#181818"/>
+                <circle cx="206" cy="118" r="2" fill="#181818"/>
+                <circle cx="214" cy="118" r="2" fill="#181818"/>
+                <ellipse cx="210" cy="137" rx="11" ry="10" fill="#E74C3C" stroke="#181818"/>
+                <!-- Book -->
+                <rect x="198" y="128" width="12" height="16" fill="white" stroke="#181818" stroke-width="1.5" transform="rotate(-10 204 136)"/>
+
+                <!-- Chair 4 - person on phone -->
+                <rect x="270" y="150" width="40" height="6" rx="2" fill="#D4A574" stroke="#181818" stroke-width="1.5"/>
+                <line x1="275" y1="156" x2="273" y2="180" stroke="#181818" stroke-width="2"/>
+                <line x1="305" y1="156" x2="307" y2="180" stroke="#181818" stroke-width="2"/>
+                <circle cx="290" cy="120" r="12" fill="#F5CBA7" stroke="#181818"/>
+                <circle cx="286" cy="118" r="2" fill="#181818"/>
+                <circle cx="294" cy="118" r="2" fill="#181818"/>
+                <ellipse cx="290" cy="137" rx="11" ry="10" fill="#27AE60" stroke="#181818"/>
+                <!-- Phone -->
+                <rect x="300" y="115" width="8" height="14" rx="2" fill="#333" stroke="#181818" stroke-width="1"/>
+                <rect x="301" y="117" width="6" height="8" fill="#85C1E9" stroke="none"/>
+
+                <!-- Vending machine -->
+                <rect x="340" y="90" width="45" height="90" rx="3" fill="#AEB6BF" stroke="#181818" stroke-width="2"/>
+                <rect x="345" y="95" width="35" height="40" fill="#2C3E50" stroke="#181818"/>
+                <text x="348" y="112" font-size="6" fill="white" font-family="sans-serif">SNACKS</text>
+                <rect x="345" y="140" width="35" height="15" rx="2" fill="#F39C12" stroke="#181818"/>
+                <text x="350" y="151" font-size="6" fill="#181818" font-family="sans-serif">£2.50</text>
+                <!-- OUT OF ORDER sign -->
+                <rect x="343" y="160" width="39" height="12" fill="#C0392B" stroke="none" transform="rotate(-8 362 166)"/>
+                <text x="346" y="169" font-size="6" fill="white" font-family="sans-serif" transform="rotate(-8 362 166)">OUT OF ORDER</text>
+
+                <!-- Floor -->
+                <line x1="10" y1="190" x2="390" y2="190" stroke="#181818" stroke-width="1" stroke-dasharray="5,5"/>
+
+                <!-- Arrow pointing to Michael -->
+                <path d="M130,200 L130,210" stroke="#C0392B" stroke-width="2"/>
+                <polygon points="125,210 135,210 130,218" fill="#C0392B"/>
+                <text x="105" y="232" font-size="10" font-family="'Indie Flower'" fill="#C0392B">Michael</text>
+            </svg>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            It is 8:47am on the 10th of February 2026 in Gibraltar. The sun is shining. The Mediterranean is glistening. Tourists are taking photos of the Rock. And Michael has arrived thirteen minutes early to sit in a windowless room because, in his words, "if I'm going to suffer, I might as well get a head start." The walk here took four minutes. Everything in Gibraltar takes four minutes. He is told to sit down and wait. He is <span class="handwritten-highlight">still waiting</span>.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(texting)</em> This is it. This is where I die. Not in a blaze of glory. In a beige room with no phone signal. I live on a rock in the sun and I'm going to perish under fluorescent lighting. I can HEAR the sea from here. E.I.F.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(to the stranger next to him)</em> So... this is grim, isn't it. We're basically prisoners who haven't done anything. I think I know you actually. Did you go to Bayside?
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker other">Stranger:</span>
+            <em>(doesn't remove earbuds)</em>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            Yeah. Yeah, that's the right response honestly. Shut it all out. Save yourself.
+        </div>
+
+        <p class="stage-direction">~ Three hours pass. Nothing happens. A man coughs. That's the highlight. Michael has been staring at a fire exit sign like it's a religious symbol. Through a crack in the door he can see a monkey on the railing outside. The monkey is free. Michael is not. ~</p>
+
+        <div class="boredom-meter">
+            <div class="meter-label">Michael's E.I.F. Level (LIVE)</div>
+            <div class="meter-bar">
+                <div class="meter-fill" id="boredom-fill" style="width: 15%"></div>
+            </div>
+            <p style="font-size:1.1rem; margin:0; color:#777;" id="boredom-label">Mildly contemplating the void</p>
+        </div>
+
+        <div class="ticket-number">
+            YOUR NUMBER: <span style="color: var(--red-pen);">247</span>
+        </div>
+        <p style="font-size: 1.1rem; color: #999;"><em>Now serving: 12</em> <span class="scribble-note">are you serious</span></p>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            I've now read every poster in this room. Did you know there are <span class="handwritten-highlight">14 types of antisocial behaviour</span>? I've committed three of them mentally just sitting here. Fourteen seems low. They should add "making someone sit in a room for no reason." That's fifteen.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            The vending machine has been out of order since I got here. Even the machines have given up. That vending machine is the most honest thing in this building. It's looked at the state of the world and said "no. I'm not participating." Respect.
+        </div>
+
+        <div class="thought-bubble">
+            I live on a Mediterranean rock with sunshine 300 days a year and I'm spending today in a room with no windows. A Barbary macaque outside has more freedom than me. Even the monkeys are living better than this. E.I.F.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            At 11:30am, a court official appears. Michael's heart races. Is this it? Is justice finally calling his name? Is the sweet release of purpose upon him?
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker other">Court Official:</span>
+            The Wi-Fi password is "justice4all", no spaces, all lowercase.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(staring into the void)</em> "Justice4all." The greatest lie ever told, and they've made it a Wi-Fi password. This is the most honest the justice system has ever been. It's not real. It's just a password. For internet that probably doesn't even work. E.I.F.
+        </div>
+    </div>
+
+    <!-- ============ ACT IV: THE LUNCH BREAK ============ -->
+    <div class="paper-note">
+        <span class="act-label">Act IV</span>
+        <h2>The Lunch "Break"</h2>
+
+        <p class="stage-direction">~ 1:00pm. TODAY. Michael has been released for lunch like a zoo animal on day release. He texts the group chat: "if I don't come back, tell my story." He briefly considers walking to the Spanish border. It's only 10 minutes. ~</p>
+
+        <div class="scene-illustration">
+            <svg viewBox="0 0 350 200" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="340">
+                <!-- Sad sandwich scene -->
+                <!-- Table -->
+                <rect x="80" y="130" width="190" height="8" rx="2" fill="#D4A574" stroke="#181818"/>
+                <line x1="100" y1="138" x2="95" y2="195" stroke="#181818" stroke-width="3"/>
+                <line x1="250" y1="138" x2="255" y2="195" stroke="#181818" stroke-width="3"/>
+
+                <!-- Sad meal deal -->
+                <!-- Sandwich wrapper -->
+                <path d="M110,100 L100,130 L170,130 L160,100 Z" fill="#F9E79F" stroke="#181818"/>
+                <path d="M115,108 L155,108" stroke="#27AE60" stroke-width="2"/><!-- lettuce -->
+                <path d="M118,115 L152,115" stroke="#E74C3C" stroke-width="2"/><!-- tomato -->
+                <path d="M113,122 L157,122" stroke="#F5CBA7" stroke-width="3"/><!-- bread -->
+                <text x="112" y="97" font-size="6" font-family="sans-serif" fill="#666">£4.99</text>
+
+                <!-- Crisps -->
+                <ellipse cx="210" cy="118" rx="22" ry="16" fill="#E74C3C" stroke="#181818"/>
+                <text x="197" y="122" font-size="7" fill="white" font-family="sans-serif" font-weight="bold">crisps</text>
+
+                <!-- Sad drink -->
+                <rect x="250" y="95" width="20" height="35" rx="3" fill="#85C1E9" stroke="#181818"/>
+                <rect x="252" y="98" width="16" height="10" fill="white" stroke="none"/>
+                <text x="254" y="106" font-size="5" fill="#2471A3" font-family="sans-serif">water</text>
+                <!-- Straw -->
+                <line x1="260" y1="85" x2="258" y2="100" stroke="#C0392B" stroke-width="2"/>
+
+                <!-- Michael's face above -->
+                <circle cx="175" cy="60" r="25" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Dead inside eyes -->
+                <line x1="165" y1="55" x2="172" y2="55" stroke="#181818" stroke-width="2"/>
+                <line x1="178" y1="55" x2="185" y2="55" stroke="#181818" stroke-width="2"/>
+                <!-- Flat mouth -->
+                <line x1="167" y1="70" x2="183" y2="70" stroke="#181818" stroke-width="2"/>
+                <!-- Hair -->
+                <path d="M150,45 Q155,30 175,35 Q195,30 200,45" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="2"/>
+                <!-- Body -->
+                <rect x="160" y="82" width="30" height="50" rx="5" fill="#6BA3D6" stroke="#181818"/>
+
+                <!-- Price tag floating -->
+                <rect x="20" y="30" width="55" height="25" fill="var(--lemon-yellow)" stroke="#181818" stroke-width="1.5" transform="rotate(-5 47 42)"/>
+                <text x="26" y="46" font-size="9" font-family="'Gloria Hallelujah'" fill="#C0392B" transform="rotate(-5 47 42)">£4.99?!</text>
+            </svg>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            Four pounds ninety-nine. For a sandwich. In GIBRALTAR. I could walk to Spain and get a three-course meal for that. With wine. But no. I'm eating this sad triangle of bread within sight of the Supreme Court like a man on probation. <span class="handwritten-highlight">I'll be on that jury.</span> The sandwich jury. I've got nothing else on.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            You know what this sandwich is? It's a metaphor. Overpriced, underwhelming, and falling apart in your hands. Just like life. Just like everything. E.I.F.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            Michael is currently eating his meal deal on a bench outside the court, staring at the Rock of Gibraltar like a man who has seen too much — which, ironically, he hasn't. He hasn't seen anything. He's been in a waiting room for four hours. The Rock has been there for 200 million years. It has more patience than Michael. A Barbary macaque approaches him. It eyes his crisps. Michael lets it happen. He's got nothing left to fight for.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(on the phone)</em> Yeah Mum, no, they haven't called me yet. No it's not like the films. There's no dramatic music. A monkey just stole my crisps. No, an actual monkey. It's Gibraltar, Mum. I'm basically just sitting here waiting to die, but with a lanyard on, on a rock, in the sun.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker other">Michael's Mum (phone):</span>
+            Did you wear the nice shirt?
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            YES MUM. I ironed it. TWICE. For THIS. I could've walked to Spain by now. THREE TIMES. I could be eating tapas. Instead I'm watching a monkey eat my lunch. At least the monkey's having a good day.
+        </div>
+    </div>
+
+    <!-- ============ ACT V: THE TWIST ============ -->
+    <div class="paper-note">
+        <div class="eif-stamp" style="top: 50px; left: 30px; font-size:2rem; opacity:0.12; transform:rotate(-20deg);">E.I.F.</div>
+        <span class="act-label">Act V — The End (Of Michael's Will To Live)</span>
+        <h2>The Grand Finale</h2>
+
+        <p class="stage-direction">~ 3:45pm. TODAY. The fluorescent lights have started to feel personal. Michael has begun writing his memoirs on a napkin. ~</p>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            It is 3:45pm. Michael has now been here for approximately seven hours and forty-two minutes. One sad sandwich. Three trips to a broken vending machine. An existential crisis in a toilet cubicle. He has whispered "E.I.F." to himself eleven times. A woman moved seats away from him. And then... the words he's been waiting for...
+        </div>
+
+        <div class="scene-illustration">
+            <svg viewBox="0 0 350 220" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="350">
+                <!-- Court official -->
+                <circle cx="100" cy="60" r="20" fill="#F5CBA7" stroke="#181818"/>
+                <rect x="80" y="78" width="40" height="45" rx="5" fill="#2C3E50" stroke="#181818"/>
+                <!-- Clipboard -->
+                <rect x="125" y="85" width="20" height="28" rx="2" fill="#F5F0E1" stroke="#181818"/>
+                <line x1="130" y1="93" x2="140" y2="93" stroke="#999" stroke-width="1"/>
+                <line x1="130" y1="98" x2="140" y2="98" stroke="#999" stroke-width="1"/>
+                <line x1="130" y1="103" x2="140" y2="103" stroke="#999" stroke-width="1"/>
+                <!-- Face -->
+                <circle cx="94" cy="57" r="2" fill="#181818"/>
+                <circle cx="106" cy="57" r="2" fill="#181818"/>
+                <line x1="94" y1="67" x2="106" y2="67" stroke="#181818" stroke-width="1.5"/>
+                <!-- Speech lines -->
+                <path d="M130,55 L150,45 L155,55 L175,40" stroke="#181818" stroke-width="1.5" fill="none"/>
+
+                <!-- Michael (hopeful, leaning forward) -->
+                <circle cx="260" cy="65" r="22" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Sparkly hopeful eyes -->
+                <circle cx="253" cy="60" r="4" fill="#181818"/>
+                <circle cx="267" cy="60" r="4" fill="#181818"/>
+                <circle cx="254" cy="59" r="1.5" fill="white"/>
+                <circle cx="268" cy="59" r="1.5" fill="white"/>
+                <!-- Smile -->
+                <path d="M252,75 Q260,82 268,75" stroke="#181818" stroke-width="2" fill="none"/>
+                <!-- Hair -->
+                <path d="M238,50 Q245,35 260,40 Q275,35 282,50" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="2"/>
+                <!-- Body leaning forward -->
+                <ellipse cx="258" cy="100" rx="18" ry="20" fill="#6BA3D6" stroke="#181818"/>
+                <!-- Sparkles around Michael -->
+                <path d="M230,45 L233,40 L236,45 L233,50 Z" fill="#F5D76E" stroke="none">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="0.8s" repeatCount="indefinite"/>
+                </path>
+                <path d="M290,50 L293,45 L296,50 L293,55 Z" fill="#F5D76E" stroke="none">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="0.8s" repeatCount="indefinite"/>
+                </path>
+                <path d="M285,35 L288,30 L291,35 L288,40 Z" fill="#F5D76E" stroke="none">
+                    <animate attributeName="opacity" values="0.5;1;0.5" dur="1s" repeatCount="indefinite"/>
+                </path>
+
+                <!-- Big speech bubble -->
+                <rect x="50" y="145" width="250" height="55" rx="25" fill="white" stroke="#181818" stroke-width="2"/>
+                <polygon points="240,145 260,130 270,148" fill="white" stroke="white" stroke-width="2"/>
+                <line x1="240" y1="145" x2="260" y2="130" stroke="#181818" stroke-width="2"/>
+                <line x1="260" y1="130" x2="270" y2="147" stroke="#181818" stroke-width="2"/>
+                <text x="75" y="178" font-size="14" font-family="'Gloria Hallelujah'" fill="#181818">You can all go home.</text>
+            </svg>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker other">Court Official:</span>
+            Thank you all for your patience. The case has been settled. You are no longer required. You may go home.
+        </div>
+
+        <p class="stage-direction">~ Silence. The kind of silence that precedes either enlightenment or a breakdown. ~</p>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            ...
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(to no one, to everyone, to God)</em> ...What?
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            I sat here for EIGHT HOURS. I ironed a shirt. <em>TWICE.</em> I looked a stranger in the eye and said "do you come here often" like this was a BAR. I ate a sandwich that cost five pounds and tasted like disappointment. And for WHAT? <span class="handwritten-highlight">FOR WHAT?!</span>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(standing up, gathering his things with the energy of a man at his own funeral)</em><br>
+            Everything. Is. Fucked.
+        </div>
+
+        <div class="verdict-card">
+            <h3>THE VERDICT</h3>
+            <p style="font-size:1.6rem; margin: 0;">
+                Michael served zero (0) days of jury service.<br>
+                He sat in a room for <span class="handwritten-highlight">seven hours and forty-two minutes</span>.<br>
+                He was paid £5.71 in expenses.<br>
+                The sandwich cost £4.99.
+            </p>
+            <p style="font-size:2rem; margin-top:1rem; font-family:'Gloria Hallelujah';">
+                Net profit: <span style="color: var(--red-pen);">72p</span>
+            </p>
+            <p style="font-size:1.3rem; margin-top:0.8rem; color: #666;">
+                Michael's faith in humanity: <span style="color: var(--red-pen); font-family:'Gloria Hallelujah';">-£∞</span>
+            </p>
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            Michael is now walking home in silence. It's a four-minute walk. That's the thing about Gibraltar — you can never dramatically storm off into the distance because you run out of country. He loosens the collar of his <span class="crossed-out">twice-ironed</span> shirt. A Barbary macaque sits on a wall, watching him. It's the same one that stole his crisps. It has more purpose today than Michael did.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(to the monkey)</em> Don't look at me like that. You stole my crisps AND my dignity. You get to just... climb away. Up the Rock. Into the sun. Do you know how powerful that is? You could leave right now. I couldn't. I had a <em>lanyard</em>. On a rock. In the Mediterranean. Living the dream.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker michael">Michael:</span>
+            <em>(still to the monkey)</em> Everything is fucked, mate. E.I.F. But you already knew that. You steal crisps from strangers outside courthouses. You're living more honestly than anyone in that building.
+        </div>
+
+        <div class="dialogue">
+            <span class="speaker narrator">Narrator:</span>
+            The monkey does not respond. It climbs up a wall and disappears toward the Upper Rock. It has places to be. Unlike Michael, who has been in a waiting room since breakfast and is now emotionally bonding with a protected species on a British Overseas Territory.
+        </div>
+
+        <!-- Michael walking home scene -->
+        <div class="scene-illustration">
+            <svg viewBox="0 0 400 180" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="380">
+                <!-- Sunset/sky -->
+                <rect x="0" y="0" width="400" height="130" fill="#FDEBD0" stroke="none"/>
+                <circle cx="350" cy="40" r="25" fill="#F5D76E" stroke="none" opacity="0.6"/>
+                <!-- Ground -->
+                <rect x="0" y="130" width="400" height="50" fill="#C8E6C9" stroke="none"/>
+                <line x1="0" y1="130" x2="400" y2="130" stroke="#181818" stroke-width="1"/>
+
+                <!-- Buildings in background -->
+                <rect x="20" y="60" width="40" height="70" fill="#D5DBDB" stroke="#181818" stroke-width="1"/>
+                <rect x="25" y="70" width="10" height="10" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+                <rect x="45" y="70" width="10" height="10" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+                <rect x="25" y="90" width="10" height="10" fill="#F9E79F" stroke="#181818" stroke-width="0.5"/>
+                <rect x="45" y="90" width="10" height="10" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+
+                <rect x="70" y="80" width="35" height="50" fill="#D5DBDB" stroke="#181818" stroke-width="1"/>
+                <rect x="75" y="88" width="8" height="8" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+                <rect x="90" y="88" width="8" height="8" fill="#F9E79F" stroke="#181818" stroke-width="0.5"/>
+
+                <!-- Court building they're leaving -->
+                <rect x="280" y="50" width="80" height="80" fill="#E8DAEF" stroke="#181818" stroke-width="1.5"/>
+                <rect x="295" y="60" width="15" height="20" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+                <rect x="330" y="60" width="15" height="20" fill="#85C1E9" stroke="#181818" stroke-width="0.5"/>
+                <rect x="310" y="100" width="20" height="30" fill="#A67B5B" stroke="#181818"/>
+                <text x="283" y="48" font-size="5" font-family="sans-serif" fill="#666">SUPREME COURT GIB</text>
+                <!-- Columns -->
+                <line x1="290" y1="50" x2="290" y2="130" stroke="#181818" stroke-width="2"/>
+                <line x1="350" y1="50" x2="350" y2="130" stroke="#181818" stroke-width="2"/>
+                <!-- Pediment -->
+                <path d="M278,50 L320,30 L362,50" fill="#E8DAEF" stroke="#181818" stroke-width="1.5"/>
+
+                <!-- Michael walking away, slumped -->
+                <circle cx="185" cy="100" r="16" fill="#F5CBA7" stroke="#181818"/>
+                <!-- Tired face -->
+                <line x1="179" y1="98" x2="183" y2="98" stroke="#181818" stroke-width="1.5"/>
+                <line x1="187" y1="98" x2="191" y2="98" stroke="#181818" stroke-width="1.5"/>
+                <path d="M180,108 L190,108" stroke="#181818" stroke-width="1.5"/>
+                <!-- Hair -->
+                <path d="M169,92 Q175,80 185,84 Q195,80 201,92" fill="#3D2B1F" stroke="#3D2B1F" stroke-width="2"/>
+                <!-- Slumped body -->
+                <ellipse cx="187" cy="125" rx="12" ry="14" fill="#6BA3D6" stroke="#181818"/>
+                <!-- Legs walking -->
+                <line x1="180" y1="138" x2="174" y2="160" stroke="#333" stroke-width="3"/>
+                <line x1="192" y1="138" x2="198" y2="160" stroke="#333" stroke-width="3"/>
+                <ellipse cx="171" cy="163" rx="8" ry="4" fill="#333" stroke="#181818" stroke-width="1"/>
+                <ellipse cx="201" cy="163" rx="8" ry="4" fill="#333" stroke="#181818" stroke-width="1"/>
+                <!-- Loosened tie/collar lines -->
+                <line x1="183" y1="112" x2="180" y2="118" stroke="#C0392B" stroke-width="1.5"/>
+
+                <!-- Barbary macaque on wall -->
+                <rect x="125" y="120" width="40" height="12" rx="2" fill="#D5DBDB" stroke="#181818" stroke-width="1"/><!-- wall -->
+                <circle cx="145" cy="112" r="8" fill="#C4956A" stroke="#181818" stroke-width="1.5"/><!-- body -->
+                <circle cx="145" cy="102" r="6" fill="#D4A574" stroke="#181818" stroke-width="1.5"/><!-- head -->
+                <circle cx="143" cy="100" r="1.2" fill="#181818"/><!-- eye -->
+                <circle cx="147" cy="100" r="1.2" fill="#181818"/><!-- eye -->
+                <ellipse cx="145" cy="104" rx="2.5" ry="1.5" fill="#C4956A" stroke="#181818" stroke-width="0.8"/><!-- snout -->
+                <path d="M138,99 Q136,95 139,96" stroke="#D4A574" stroke-width="1.5" fill="none"/><!-- ear -->
+                <path d="M152,99 Q154,95 151,96" stroke="#D4A574" stroke-width="1.5" fill="none"/><!-- ear -->
+                <path d="M153,110 Q160,108 158,115" stroke="#C4956A" stroke-width="2" fill="none"/><!-- arm holding crisp -->
+                <rect x="156" y="112" width="6" height="4" rx="1" fill="#F5D76E" stroke="#181818" stroke-width="0.5"/><!-- crisp -->
+
+                <!-- Dotted path from court to Michael -->
+                <path d="M300,135 Q250,145 200,140" stroke="#999" stroke-width="1" stroke-dasharray="4,4" fill="none"/>
+            </svg>
+        </div>
+    </div>
+
+    <!-- ============ EPILOGUE ============ -->
+    <div class="paper-note" style="text-align: center;">
+        <span class="act-label">Epilogue</span>
+        <h2>The Aftermath</h2>
+
+        <p>Michael is on his way home right now. It's a four-minute walk — the longest four minutes of his life. He hasn't spoken since the monkey. His phone battery is on 3%. His shirt is untucked. His soul has crossed the border into Spain.</p>
+
+        <p>But we all know what's coming. Because <span class="handwritten-highlight">everything is fucked</span>. And in three weeks...</p>
+
+        <div class="scene-illustration">
+            <svg viewBox="0 0 200 120" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round" width="200">
+                <!-- Letter/envelope -->
+                <rect x="40" y="30" width="120" height="70" rx="2" fill="white" stroke="#181818"/>
+                <path d="M40,30 L100,70 L160,30" stroke="#181818" fill="none"/>
+                <!-- Red stamp -->
+                <rect x="120" y="40" width="30" height="20" rx="2" fill="#C0392B" stroke="none" opacity="0.8"/>
+                <text x="124" y="54" font-size="7" fill="white" font-family="sans-serif" font-weight="bold">GIB SC</text>
+                <!-- Doom rays again -->
+                <line x1="100" y1="20" x2="100" y2="8" stroke="#C0392B" stroke-width="2">
+                    <animate attributeName="opacity" values="1;0.3;1" dur="1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="80" y1="25" x2="70" y2="12" stroke="#C0392B" stroke-width="2">
+                    <animate attributeName="opacity" values="0.3;1;0.3" dur="1s" repeatCount="indefinite"/>
+                </line>
+                <line x1="120" y1="25" x2="130" y2="12" stroke="#C0392B" stroke-width="2">
+                    <animate attributeName="opacity" values="0.5;1;0.5" dur="1.2s" repeatCount="indefinite"/>
+                </line>
+            </svg>
+        </div>
+
+        <p><em>"You are hereby summoned..."</em></p>
+
+        <div class="verdict-card" style="background: white;">
+            <p style="font-size:2.5rem; margin:0; font-family:'Gloria Hallelujah'; color: var(--red-pen);">
+                E.I.F.
+            </p>
+            <p style="font-size:1.3rem; margin-top:0.5rem; color: #666;">
+                (Everything Is Fucked. Always has been. Always will be.)
+            </p>
+        </div>
+
+        <a href="#" class="action-btn" id="sendToMichael" onclick="this.innerHTML='Sent! Michael says: E.I.F.'; this.style.background='#FFE4E1'; return false;">
+            Send This to Michael (He's Already Home — It's Gibraltar)
+        </a>
+
+        <p style="font-size: 1rem; color: #999; margin-top: 2rem; font-style: italic;">
+            No jurors were harmed in the making of this sketch.<br>
+            One sandwich was tragically overpriced.<br>
+            One packet of crisps was stolen by a Barbary macaque.<br>
+            One shirt was ironed. Twice. For nothing.<br>
+            One man's faith in the system was already dead. Gibraltar just confirmed it.<br>
+            <strong>E.I.F.</strong>
+        </p>
+
+        <div class="sticker sticker-bottom-left wiggling">
+            <svg viewBox="0 0 100 100" fill="none" stroke="#181818" stroke-width="2" stroke-linecap="round">
+                <!-- Small gavel -->
+                <rect x="30" y="25" width="30" height="18" rx="3" fill="#D4A574" stroke="#181818"/>
+                <rect x="42" y="43" width="8" height="25" rx="2" fill="#C4956A" stroke="#181818"/>
+                <line x1="25" y1="72" x2="67" y2="72" stroke="#181818" stroke-width="3"/>
+                <!-- Stars -->
+                <path d="M15,15 L18,10 L21,15 L18,20 Z" fill="#F5D76E" stroke="none"/>
+                <path d="M75,12 L78,7 L81,12 L78,17 Z" fill="#F5D76E" stroke="none"/>
+                <path d="M80,50 L83,45 L86,50 L83,55 Z" fill="#F5D76E" stroke="none"/>
+            </svg>
+        </div>
+    </div>
+
+</div>
+
+<script>
+    // Boredom meter animation
+    const stages = [
+        { width: '15%', label: 'Mildly contemplating the void', delay: 1000 },
+        { width: '35%', label: 'Texting "E.I.F." to the group chat', delay: 3000 },
+        { width: '55%', label: 'Counting ceiling tiles (47) and wondering if this is purgatory', delay: 5000 },
+        { width: '72%', label: 'Writing a will on the back of a jury leaflet', delay: 7000 },
+        { width: '88%', label: 'Has accepted death. Death would at least be interesting.', delay: 9000 },
+        { width: '98%', label: 'E.I.F. SINGULARITY REACHED', delay: 11000 },
+    ];
+
+    const fill = document.getElementById('boredom-fill');
+    const label = document.getElementById('boredom-label');
+    let currentStage = 0;
+
+    function observeBoredom() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    stages.forEach((stage, i) => {
+                        setTimeout(() => {
+                            fill.style.width = stage.width;
+                            label.textContent = stage.label;
+                        }, stage.delay);
+                    });
+                    observer.disconnect();
+                }
+            });
+        }, { threshold: 0.5 });
+
+        observer.observe(fill);
+    }
+
+    observeBoredom();
+
+    // Polaroid random rotation on hover
+    const cards = document.querySelectorAll('.polaroid');
+    cards.forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            const rotation = (Math.random() * 4) - 2;
+            card.style.transform = `scale(1.05) rotate(${rotation}deg)`;
+        });
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+        });
+    });
+
+    // Parallax-ish tilt on paper notes (desktop only)
+    if (window.innerWidth > 768) {
+        document.querySelectorAll('.paper-note, .title-card').forEach(note => {
+            note.addEventListener('mousemove', (e) => {
+                const rect = note.getBoundingClientRect();
+                const x = (e.clientX - rect.left) / rect.width - 0.5;
+                const y = (e.clientY - rect.top) / rect.height - 0.5;
+                note.style.transform = `rotate(${x * 1.5}deg) scale(1.01)`;
+            });
+            note.addEventListener('mouseleave', () => {
+                note.style.transform = '';
+            });
+        });
+    }
+
+    // Mobile scroll dots
+    if (window.innerWidth <= 768) {
+        const surface = document.querySelector('.desk-surface');
+        const panels = surface.querySelectorAll('.title-card, .paper-note');
+        const dotsContainer = document.getElementById('scrollDots');
+        const swipeHint = document.getElementById('swipeHint');
+
+        panels.forEach((_, i) => {
+            const dot = document.createElement('div');
+            dot.className = 'scroll-dot' + (i === 0 ? ' active' : '');
+            dot.addEventListener('click', () => {
+                panels[i].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+            });
+            dotsContainer.appendChild(dot);
+        });
+
+        const dots = dotsContainer.querySelectorAll('.scroll-dot');
+
+        surface.addEventListener('scroll', () => {
+            const scrollLeft = surface.scrollLeft;
+            const panelWidth = panels[0].offsetWidth + 12 * window.innerWidth / 100;
+            const index = Math.round(scrollLeft / panelWidth);
+            dots.forEach((d, i) => d.classList.toggle('active', i === index));
+            if (scrollLeft > 50 && swipeHint) swipeHint.style.display = 'none';
+        });
+    }
+</script>
+
+</body>
+</html>
