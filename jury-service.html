@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jury Service: E.I.F. — El Vrada Chronicles</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Caveat:wght@400;700&family=Bangers&family=Sue+Ellen+Francisco&display=swap');
+
+        :root {
+            --paper: #FFFCF5;
+            --ink: #1a1a1a;
+            --red-pen: #C0392B;
+            --blue-pen: #2471A3;
+            --sea-blue: #2980B9;
+            --rock-grey: #4A4A4A;
+            --sand: #F5E6CA;
+            --sky: #87CEEB;
+            --lemon: #FCEFA6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Indie Flower', cursive;
+            color: var(--ink);
+            overflow-x: hidden;
+            background: var(--paper);
+            min-height: 100vh;
+        }
+
+        /* ===== HAMBURGER NAV ===== */
+        .hamburger {
+            position: fixed; top: 1.2rem; left: 1.2rem; z-index: 1000;
+            width: 44px; height: 44px; background: var(--paper);
+            border: 2.5px solid var(--ink); border-radius: 8px; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 5px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.15); transition: transform 0.2s;
+        }
+        .hamburger:hover { transform: scale(1.08); }
+        .hamburger span {
+            display: block; width: 22px; height: 2.5px;
+            background: var(--ink); border-radius: 2px; transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 998;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+        .nav-drawer {
+            position: fixed; top: 0; left: -320px; width: 300px; max-width: 85vw;
+            height: 100%; background: var(--paper); z-index: 999;
+            transition: left 0.3s ease; box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .nav-drawer.open { left: 0; }
+
+        .nav-header { padding: 2rem 1.5rem 1.5rem; border-bottom: 2px solid var(--ink); }
+        .nav-header h2 { font-family: 'Gloria Hallelujah', cursive; font-size: 1.5rem; }
+        .nav-header p { font-family: 'Caveat', cursive; font-size: 1rem; color: #888; margin-top: 0.3rem; }
+
+        .nav-links { padding: 1rem 0; flex: 1; }
+        .nav-link {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.5rem; text-decoration: none; color: var(--ink);
+            font-family: 'Indie Flower', cursive; font-size: 1.2rem;
+            transition: background 0.2s; border-left: 4px solid transparent;
+        }
+        .nav-link:hover { background: rgba(0,0,0,0.04); }
+        .nav-link.active { background: rgba(41,128,185,0.08); border-left-color: var(--sea-blue); font-weight: bold; }
+        .nav-link .nav-icon { font-size: 1.5rem; min-width: 30px; text-align: center; }
+        .nav-link .nav-label { line-height: 1.3; }
+        .nav-link .nav-date { font-family: 'Caveat', cursive; font-size: 0.85rem; color: #999; display: block; }
+
+        /* ===== STORY PAGE ===== */
+        .story-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .back-link {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            font-family: 'Caveat', cursive; font-size: 1.2rem;
+            color: var(--sea-blue); text-decoration: none;
+            margin-bottom: 1.5rem; padding-left: 3rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .story-header {
+            text-align: center; padding: 1rem 2rem 2rem;
+        }
+        .story-header .story-date {
+            font-family: 'Bangers', cursive; font-size: 1.1rem;
+            letter-spacing: 3px; color: var(--red-pen);
+        }
+        .story-header h1 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2.8rem; line-height: 1.15; margin: 0.5rem 0;
+        }
+        .story-header .story-subtitle {
+            font-family: 'Caveat', cursive; font-size: 1.4rem; color: #777;
+        }
+
+        .scene {
+            background: var(--paper);
+            border: 2.5px solid var(--ink);
+            border-radius: 2px 12px 2px 12px;
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            position: relative;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.08);
+        }
+        .scene::before {
+            content: attr(data-scene);
+            position: absolute; top: -14px; left: 20px;
+            background: var(--lemon); border: 2px solid var(--ink);
+            padding: 0.1rem 0.8rem; font-family: 'Bangers', cursive;
+            font-size: 0.9rem; letter-spacing: 2px;
+        }
+
+        .scene h2 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.6rem; margin-bottom: 1rem;
+            padding-bottom: 0.5rem; border-bottom: 2px dashed #ddd;
+        }
+
+        .stage-direction {
+            font-family: 'Caveat', cursive; font-style: italic;
+            color: #888; font-size: 1.2rem; margin: 1rem 0;
+            padding-left: 1rem; border-left: 3px solid #ddd;
+        }
+
+        .dialogue { margin: 0.8rem 0; line-height: 1.8; }
+        .dialogue .speaker {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px; font-size: 1.05rem;
+        }
+        .speaker-elvrada { color: var(--red-pen); }
+        .speaker-sarah { color: var(--blue-pen); }
+        .speaker-clerk { color: #8E44AD; }
+        .speaker-judge { color: #27AE60; }
+        .speaker-juror { color: #E67E22; }
+
+        .dialogue .line { font-size: 1.2rem; padding-left: 1.5rem; }
+
+        .emphasis {
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem; letter-spacing: 1px;
+        }
+
+        .aside {
+            background: var(--lemon); border: 2px dashed var(--ink);
+            padding: 1rem 1.5rem; margin: 1.5rem 0;
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.3rem; transform: rotate(-0.5deg);
+        }
+
+        .receipt {
+            background: #fff;
+            border: 2px solid #ccc;
+            padding: 1.5rem 2rem;
+            margin: 1.5rem auto;
+            max-width: 320px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            transform: rotate(1deg);
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.08);
+        }
+        .receipt .receipt-header {
+            text-align: center;
+            font-weight: bold;
+            border-bottom: 1px dashed #999;
+            padding-bottom: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+        .receipt .receipt-total {
+            border-top: 2px solid #333;
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+            font-weight: bold;
+        }
+
+        .end-title {
+            text-align: center;
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2rem; margin: 3rem 0 1rem;
+            padding: 1.5rem;
+            border-top: 3px solid var(--ink);
+            border-bottom: 3px solid var(--ink);
+        }
+
+        .story-nav {
+            display: flex; justify-content: space-between; align-items: center;
+            margin-top: 3rem; padding-top: 2rem; border-top: 2px dashed #ddd;
+        }
+        .story-nav a {
+            font-family: 'Caveat', cursive; font-size: 1.3rem;
+            color: var(--sea-blue); text-decoration: none;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .story-nav a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .story-header h1 { font-size: 2rem; }
+            .scene { padding: 1.5rem; }
+            .receipt { max-width: 90%; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger menu -->
+<button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+    <div class="nav-header">
+        <h2>El Vrada Chronicles</h2>
+        <p>Stories from the Rock</p>
+    </div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">All Stories</span>
+        </a>
+        <a href="gibraltar-border.html" class="nav-link">
+            <span class="nav-icon">🚧</span>
+            <span class="nav-label">
+                The Border Is Opening!
+                <span class="nav-date">April 10, 2026</span>
+            </span>
+        </a>
+        <a href="jury-service.html" class="nav-link active">
+            <span class="nav-icon">⚖️</span>
+            <span class="nav-label">
+                Jury Service: E.I.F.
+                <span class="nav-date">February 10, 2026</span>
+            </span>
+        </a>
+    </div>
+</nav>
+
+<div class="story-container">
+
+    <a href="index.html" class="back-link">← Back to All Stories</a>
+
+    <div class="story-header">
+        <div class="story-date">FEBRUARY 10, 2026</div>
+        <h1>⚖️ Jury Service: E.I.F.</h1>
+        <p class="story-subtitle">Everything Is Fucked — a day of justice on the Rock</p>
+    </div>
+
+    <!-- SCENE 1 -->
+    <div class="scene" data-scene="SCENE 1">
+        <h2>📬 The Kitchen — 7:12 AM</h2>
+
+        <div class="stage-direction">El Vrada is standing in the kitchen in his dressing gown, holding an official-looking letter. His face suggests he has just been personally insulted by the Crown.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">No. No no no. <span class="emphasis">NO.</span></div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">What is it?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Jury service. They want me for JURY SERVICE.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">That's your civic duty.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">My civic duty is paying council tax and complaining about potholes. Not sitting in a room with eleven strangers deciding whether Terry from Catalan Bay nicked a generator.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">You don't know what the case is yet.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">It's always a generator. Or a moped. Or someone's cousin's mate from the estate who "didn't know the bag was in the boot."</div>
+        </div>
+
+        <div class="aside">📝 El Vrada once served as a witness in a parking dispute and still brings it up at dinner parties. He considers this his legal career.</div>
+    </div>
+
+    <!-- SCENE 2 -->
+    <div class="scene" data-scene="SCENE 2">
+        <h2>🏛️ The Supreme Court — 8:55 AM</h2>
+
+        <div class="stage-direction">El Vrada arrives at the Supreme Court building on Main Street. It is not, by any international standard, supreme. He is wearing his "court suit" which is just his wedding suit with a different tie. The tie has tiny anchors on it.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">Name?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">El Vrada. Here under protest.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">Take a seat in the waiting room, please.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">How long will this take?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">Could be all day.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(under his breath) Everything is fucked.</div>
+        </div>
+    </div>
+
+    <!-- SCENE 3 -->
+    <div class="scene" data-scene="SCENE 3">
+        <h2>🪑 The Waiting Room — 9:00 AM to ???</h2>
+
+        <div class="stage-direction">The waiting room is beige. Aggressively beige. There are twelve plastic chairs, a water cooler with no cups, and a poster about fire safety from 2004. El Vrada is seated between a woman doing a crossword and a man who appears to be asleep.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(to the crossword woman) How long have you been here?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-juror">CROSSWORD WOMAN:</div>
+            <div class="line">Forty-five minutes.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">And nothing's happened?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-juror">CROSSWORD WOMAN:</div>
+            <div class="line">The clerk came in and said "it won't be long."</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">When?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-juror">CROSSWORD WOMAN:</div>
+            <div class="line">Forty-five minutes ago.</div>
+        </div>
+
+        <div class="stage-direction">El Vrada stares at the fire safety poster. It says "In case of fire, leave the building." He considers this.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(muttering) There must be a lighter in this building somewhere...</div>
+        </div>
+    </div>
+
+    <!-- SCENE 4 -->
+    <div class="scene" data-scene="SCENE 4">
+        <h2>🥪 The Sad Sandwich — 12:30 PM</h2>
+
+        <div class="stage-direction">It is lunchtime. El Vrada has been given a lunch voucher worth £3.50. He is at the café across the road. The only sandwich left is egg and cress.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(on the phone to Sarah) They gave me three pound fifty for lunch. Do you know what three pound fifty buys in Gibraltar? Half an egg sandwich and a bottle of water that might actually just be tap.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">You could've brought your own lunch.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">I'm not bringing a PACKED LUNCH to the Supreme Court, Sarah. I'm a juror, not a Year 6 on a school trip.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">Have they even called you in yet?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">NO. We've been sitting there for three and a half hours. The sleeping man woke up, ate a Twix, and went back to sleep. The crossword woman finished two puzzles. I've read the fire safety poster nine times. I now know all emergency exits. <span class="emphasis">I AM the fire marshal.</span></div>
+        </div>
+
+        <div class="aside">📝 The egg sandwich was, by all accounts, damp. El Vrada ate it with the expression of a man who has lost a war.</div>
+    </div>
+
+    <!-- SCENE 5 -->
+    <div class="scene" data-scene="SCENE 5">
+        <h2>🐒 The Monkey Incident — 2:15 PM</h2>
+
+        <div class="stage-direction">Back in the waiting room. A Barbary macaque has somehow gotten into the corridor outside. The clerk is trying to shoo it away with a clipboard.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(standing up, energised) RIGHT. Finally, some action.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-juror">CROSSWORD WOMAN:</div>
+            <div class="line">Is that a monkey?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">That's a Barbary macaque and technically it's got more right to be here than I do.</div>
+        </div>
+
+        <div class="stage-direction">The monkey grabs the sleeping man's Twix wrapper and runs off. The sleeping man does not wake up.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(to the clerk) Is THIS the trial? Because honestly I'd rather judge the monkey.</div>
+        </div>
+    </div>
+
+    <!-- SCENE 6 -->
+    <div class="scene" data-scene="SCENE 6">
+        <h2>🔨 The Anti-Climax — 4:00 PM</h2>
+
+        <div class="stage-direction">The clerk returns. Everyone looks up with desperate hope.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">Thank you all for your patience. The case has been settled out of court. You're free to go.</div>
+        </div>
+
+        <div class="stage-direction">Silence. El Vrada stands up slowly.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">I'm sorry — <em>what?</em></div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">The case has been resolved. You won't be needed.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">I've been here for <span class="emphasis">EIGHT HOURS</span>. I ate a sandwich that tasted like regret. A monkey stole a Twix. I memorised the fire escape plan. And you're telling me it's just... OVER?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">You'll receive your compensation by post.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Compensation? How much?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">£10.22 for the day.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(voice cracking) ...Ten pounds twenty-two?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-clerk">COURT CLERK:</div>
+            <div class="line">Minus the lunch voucher.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">So... six pound seventy-two. For eight hours. That's... (calculating) ...eighty-four pence an hour. I am being paid EIGHTY-FOUR PENCE AN HOUR to do NOTHING.</div>
+        </div>
+
+        <div class="aside">📝 For reference, the Barbary macaques are estimated to bring in roughly £5 million a year in tourism revenue. The monkey earned more per minute stealing a Twix than El Vrada did all day.</div>
+    </div>
+
+    <!-- SCENE 7 -->
+    <div class="scene" data-scene="SCENE 7">
+        <h2>🏠 Home — That Evening</h2>
+
+        <div class="stage-direction">El Vrada is back on the sofa. He has the look of a man who has seen things. Sarah hands him a cup of tea.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">So how was justice?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">There was no justice, Sarah. Only chairs. And egg. And a monkey. And a man who slept through the entire British legal system.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">Will you do it again if they call you?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(long pause) ...They might have better sandwiches next time.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">That's the spirit.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Don't push it.</div>
+        </div>
+    </div>
+
+    <!-- Receipt -->
+    <div class="receipt">
+        <div class="receipt-header">RECEIPT OF JUSTICE</div>
+        Hours served: 8<br>
+        Cases judged: 0<br>
+        Sandwiches endured: 1<br>
+        Monkeys encountered: 1<br>
+        Fire exits memorised: ALL<br>
+        Twix stolen: 1<br>
+        <div class="receipt-total">
+            Compensation: £10.22<br>
+            Less lunch: -£3.50<br>
+            Less parking: -£6.00<br>
+            <strong>NET PROFIT: £0.72</strong>
+        </div>
+    </div>
+
+    <div class="end-title">⚖️ E.I.F. ⚖️<br><span style="font-size: 1rem; font-family: 'Caveat', cursive;">Everything Is Fucked.</span></div>
+
+    <!-- Nav between stories -->
+    <div class="story-nav">
+        <a href="gibraltar-border.html">← The Border Is Opening!</a>
+        <a href="index.html">All Stories →</a>
+    </div>
+
+</div>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+    function toggleNav() {
+        hamburger.classList.toggle('open');
+        navDrawer.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+    }
+    hamburger.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', toggleNav);
+</script>
+
+</body>
+</html>

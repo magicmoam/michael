@@ -3,24 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gibraltar Border Opens April 10th — El Vrada Is NOT Happy</title>
+    <title>El Vrada Chronicles — Stories from the Rock</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Caveat:wght@400;700&family=Bangers&family=Sue+Ellen+Francisco&display=swap');
 
         :root {
-            --rock-grey: #4A4A4A;
-            --gibraltar-blue: #1B3A5C;
-            --sea-blue: #2980B9;
-            --spanish-red: #C0392B;
-            --spanish-yellow: #F1C40F;
-            --brit-red: #CF142B;
-            --brit-blue: #00247D;
-            --sky: #87CEEB;
             --paper: #FFFCF5;
-            --sand: #F5E6CA;
             --ink: #1a1a1a;
-            --selwyn-rage: #E74C3C;
-            --passport-green: #27AE60;
+            --red-pen: #C0392B;
+            --blue-pen: #2471A3;
+            --sea-blue: #2980B9;
+            --rock-grey: #4A4A4A;
+            --sand: #F5E6CA;
+            --sky: #87CEEB;
+            --lemon: #FCEFA6;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -29,11 +25,11 @@
             font-family: 'Indie Flower', cursive;
             color: var(--ink);
             overflow-x: hidden;
-            background: linear-gradient(180deg, var(--sky) 0%, #B0D4F1 40%, var(--sand) 60%, #E8D5B7 100%);
+            background: linear-gradient(180deg, var(--sky) 0%, #B0D4F1 30%, var(--sand) 55%, #E8D5B7 100%);
             min-height: 100vh;
         }
 
-        /* The Rock silhouette */
+        /* Rock silhouette */
         .rock-of-gibraltar {
             position: fixed;
             bottom: 0;
@@ -42,345 +38,257 @@
             height: 350px;
             background: linear-gradient(135deg, #6B7B8D 0%, #4A5568 40%, #2D3748 100%);
             clip-path: polygon(30% 100%, 0% 60%, 5% 45%, 15% 30%, 25% 20%, 40% 8%, 55% 5%, 65% 8%, 75% 15%, 85% 30%, 95% 55%, 100% 100%);
-            opacity: 0.15;
+            opacity: 0.1;
             z-index: 0;
             pointer-events: none;
         }
 
-        .container {
-            position: relative;
-            z-index: 1;
+        /* ===== HAMBURGER NAV ===== */
+        .hamburger {
+            position: fixed;
+            top: 1.2rem;
+            left: 1.2rem;
+            z-index: 1000;
+            width: 44px;
+            height: 44px;
+            background: var(--paper);
+            border: 2.5px solid var(--ink);
+            border-radius: 8px;
+            cursor: pointer;
             display: flex;
             flex-direction: column;
             align-items: center;
-            padding: 2rem 1.5rem 4rem;
-            gap: 2.5rem;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+
+        .hamburger:hover { transform: scale(1.08); }
+
+        .hamburger span {
+            display: block;
+            width: 22px;
+            height: 2.5px;
+            background: var(--ink);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .nav-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 998;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+        .nav-drawer {
+            position: fixed;
+            top: 0;
+            left: -320px;
+            width: 300px;
+            max-width: 85vw;
+            height: 100%;
+            background: var(--paper);
+            z-index: 999;
+            transition: left 0.3s ease;
+            box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow-y: auto;
+        }
+
+        .nav-drawer.open { left: 0; }
+
+        .nav-header {
+            padding: 2rem 1.5rem 1.5rem;
+            border-bottom: 2px solid var(--ink);
+        }
+
+        .nav-header h2 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.5rem;
+            margin: 0;
+        }
+
+        .nav-header p {
+            font-family: 'Caveat', cursive;
+            font-size: 1rem;
+            color: #888;
+            margin-top: 0.3rem;
+        }
+
+        .nav-links {
+            padding: 1rem 0;
+            flex: 1;
+        }
+
+        .nav-link {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            text-decoration: none;
+            color: var(--ink);
+            font-family: 'Indie Flower', cursive;
+            font-size: 1.2rem;
+            transition: background 0.2s;
+            border-left: 4px solid transparent;
+        }
+
+        .nav-link:hover { background: rgba(0,0,0,0.04); }
+        .nav-link.active {
+            background: rgba(41,128,185,0.08);
+            border-left-color: var(--sea-blue);
+            font-weight: bold;
+        }
+
+        .nav-link .nav-icon { font-size: 1.5rem; min-width: 30px; text-align: center; }
+        .nav-link .nav-label { line-height: 1.3; }
+        .nav-link .nav-date {
+            font-family: 'Caveat', cursive;
+            font-size: 0.85rem;
+            color: #999;
+            display: block;
+        }
+
+        /* ===== MAIN CONTENT ===== */
+        .container {
+            position: relative;
+            z-index: 1;
             max-width: 900px;
             margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
         }
 
-        /* Hero / Title */
-        .hero {
-            background: var(--paper);
-            width: 100%;
-            padding: 3rem 3rem 2.5rem;
-            border: 3px solid var(--ink);
-            border-radius: 4px 255px 6px 25px / 255px 8px 225px 5px;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.12);
-            transform: rotate(-0.8deg);
+        .site-header {
             text-align: center;
-            position: relative;
-            overflow: visible;
+            padding: 3rem 2rem 2rem;
         }
 
-        .hero:hover { transform: rotate(0deg) scale(1.01); transition: transform 0.3s; }
-
-        .date-banner {
-            display: inline-block;
-            background: var(--spanish-yellow);
-            color: var(--ink);
-            font-family: 'Bangers', cursive;
-            font-size: 1.4rem;
-            letter-spacing: 3px;
-            padding: 0.4rem 1.5rem;
-            border-radius: 3px;
-            transform: rotate(-2deg);
-            margin-bottom: 1rem;
-            border: 2px solid var(--ink);
-        }
-
-        h1 {
+        .site-header h1 {
             font-family: 'Gloria Hallelujah', cursive;
             font-size: 3.2rem;
             line-height: 1.15;
             margin-bottom: 0.5rem;
         }
 
-        h1 .border-word {
-            position: relative;
-            color: var(--gibraltar-blue);
-        }
-
-        h1 .open-word {
-            color: var(--passport-green);
-        }
-
-        .hero-countdown {
-            margin-bottom: 1rem;
-        }
-
-        .hero-countdown-number {
-            font-family: 'Bangers', cursive;
-            font-size: 5rem;
-            color: var(--selwyn-rage);
-            line-height: 1;
-            display: block;
-        }
-
-        .hero-countdown-label {
+        .site-header .tagline {
             font-family: 'Caveat', cursive;
-            font-size: 1.4rem;
+            font-size: 1.5rem;
             color: #666;
         }
 
-        .hero-subtitle {
-            font-family: 'Sue Ellen Francisco', cursive;
+        .site-header .flags {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
             font-size: 2rem;
-            color: var(--selwyn-rage);
-            transform: rotate(1.5deg);
-            margin-top: 0.5rem;
+            margin-top: 1rem;
         }
 
-        .hero-subtitle .selwyn-name {
-            font-weight: bold;
-            text-decoration: underline wavy var(--selwyn-rage);
-            text-underline-offset: 5px;
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
+        .float { animation: float 3s ease-in-out infinite; }
 
-        /* Stamp decoration */
-        .passport-stamp {
-            position: absolute;
-            top: 15px;
-            right: 25px;
-            width: 90px;
-            height: 90px;
-            border: 4px solid var(--brit-red);
-            border-radius: 50%;
+        /* Story cards */
+        .stories-grid {
             display: flex;
             flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transform: rotate(15deg);
-            opacity: 0.6;
-            font-family: 'Bangers', cursive;
-            color: var(--brit-red);
-            font-size: 0.7rem;
-            letter-spacing: 1px;
-            line-height: 1.2;
-            text-align: center;
+            gap: 2rem;
+            margin-top: 2.5rem;
         }
 
-        .passport-stamp .big { font-size: 1.1rem; }
-
-        /* Card sections */
-        .card {
+        .story-card {
             background: var(--paper);
-            width: 100%;
-            padding: 2.5rem 3rem;
             border: 2.5px solid var(--ink);
             border-radius: 3px 255px 4px 20px / 255px 6px 220px 4px;
             box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            padding: 2rem 2.5rem;
+            text-decoration: none;
+            color: var(--ink);
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            transition: transform 0.3s, box-shadow 0.3s;
             position: relative;
-            transition: transform 0.3s;
+            overflow: hidden;
         }
 
-        .card:nth-child(odd) { transform: rotate(0.6deg); }
-        .card:nth-child(even) { transform: rotate(-0.7deg); }
-        .card:hover { transform: rotate(0deg) scale(1.01); }
+        .story-card:nth-child(odd) { transform: rotate(0.5deg); }
+        .story-card:nth-child(even) { transform: rotate(-0.4deg); }
 
-        .card-label {
-            font-family: 'Sue Ellen Francisco', cursive;
-            font-size: 1.1rem;
-            color: var(--spanish-red);
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            margin-bottom: 0.3rem;
+        .story-card:hover {
+            transform: rotate(0deg) scale(1.02) !important;
+            box-shadow: 12px 12px 0 rgba(0,0,0,0.15);
         }
 
-        h2 {
+        .story-icon {
+            font-size: 3.5rem;
+            min-width: 70px;
+            text-align: center;
+        }
+
+        .story-info { flex: 1; }
+
+        .story-info h2 {
             font-family: 'Gloria Hallelujah', cursive;
-            font-size: 2rem;
-            margin-bottom: 1.2rem;
-            padding-bottom: 0.4rem;
-            border-bottom: 2px solid var(--ink);
-            display: inline-block;
+            font-size: 1.8rem;
+            margin-bottom: 0.3rem;
+            line-height: 1.2;
         }
 
-        p {
-            font-size: 1.35rem;
-            line-height: 1.6;
-            margin-bottom: 1rem;
+        .story-info .story-date {
+            font-family: 'Bangers', cursive;
+            font-size: 1rem;
+            letter-spacing: 2px;
+            color: var(--red-pen);
+            margin-bottom: 0.5rem;
         }
 
-        .highlight {
-            background: linear-gradient(to right, rgba(241,196,15,0.5), rgba(241,196,15,0.3));
-            padding: 0 4px;
+        .story-info p {
+            font-size: 1.2rem;
+            line-height: 1.5;
+            color: #555;
+        }
+
+        .story-badge {
+            position: absolute;
+            top: 12px;
+            right: 16px;
+            background: var(--lemon);
+            border: 2px solid var(--ink);
+            padding: 0.2rem 0.8rem;
+            font-family: 'Bangers', cursive;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            transform: rotate(3deg);
             border-radius: 3px;
         }
 
-        .red-text { color: var(--selwyn-rage); font-weight: bold; }
-        .blue-text { color: var(--sea-blue); }
-
-        /* El Vrada quotes */
-        .selwyn-quote {
-            background: #FFF5F5;
-            border-left: 4px solid var(--selwyn-rage);
-            padding: 1.2rem 1.5rem;
-            margin: 1.2rem 0;
-            border-radius: 0 8px 8px 0;
-            position: relative;
-        }
-
-        .selwyn-quote::before {
-            content: '😤';
-            position: absolute;
-            top: -12px;
-            left: -12px;
-            font-size: 1.5rem;
-        }
-
-        .selwyn-quote .speaker {
-            font-family: 'Gloria Hallelujah', cursive;
-            font-weight: bold;
-            color: var(--selwyn-rage);
-            font-size: 1rem;
-            display: block;
-            margin-bottom: 0.3rem;
-        }
-
-        .selwyn-quote p {
-            font-size: 1.3rem;
-            margin-bottom: 0;
-            font-style: italic;
-        }
-
-        /* Stage direction */
-        .stage-direction {
-            font-family: 'Caveat', cursive;
-            font-style: italic;
-            color: #888;
-            text-align: center;
-            font-size: 1.2rem;
-            margin: 1rem 0;
-        }
-
-        /* Countdown */
-        .countdown-section {
-            background: linear-gradient(135deg, var(--gibraltar-blue), var(--brit-blue));
-            color: white;
-            width: 100%;
-            padding: 2.5rem 3rem;
-            border-radius: 12px;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .countdown-section h2 {
-            color: white;
-            border-bottom-color: rgba(255,255,255,0.4);
-            font-size: 1.8rem;
-        }
-
-        .countdown-grid {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin: 1.5rem 0;
-            flex-wrap: wrap;
-        }
-
-        .countdown-box {
-            background: rgba(255,255,255,0.15);
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 10px;
-            padding: 1rem 1.5rem;
-            min-width: 90px;
-        }
-
-        .countdown-box .number {
-            font-family: 'Bangers', cursive;
-            font-size: 3rem;
-            display: block;
-            line-height: 1;
-        }
-
-        .countdown-box .label {
-            font-family: 'Caveat', cursive;
-            font-size: 1.1rem;
-            opacity: 0.85;
-        }
-
-        .countdown-subtext {
-            font-family: 'Caveat', cursive;
-            font-size: 1.3rem;
-            opacity: 0.8;
-            margin-top: 0.5rem;
-        }
-
-        /* El Vrada mood meter */
-        .mood-meter {
-            background: var(--paper);
-            width: 100%;
-            padding: 2rem 3rem;
-            border: 2.5px solid var(--ink);
-            border-radius: 5px 255px 3px 20px / 255px 5px 220px 3px;
-            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
-            text-align: center;
-        }
-
-        .mood-meter h2 {
-            font-size: 1.6rem;
-        }
-
-        .meter-bar {
-            width: 100%;
-            height: 40px;
-            background: #eee;
-            border-radius: 20px;
-            margin: 1rem 0;
-            overflow: hidden;
-            border: 2px solid var(--ink);
-            position: relative;
-        }
-
-        .meter-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #F39C12, #E74C3C, #8E44AD);
-            border-radius: 20px 0 0 20px;
-            width: 0%;
-            transition: width 2s ease-out;
-        }
-
-        .meter-labels {
-            display: flex;
-            justify-content: space-between;
-            font-family: 'Caveat', cursive;
-            font-size: 1.1rem;
-            color: #777;
-        }
-
-        /* Timeline */
-        .timeline-item {
-            display: flex;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-            align-items: flex-start;
-        }
-
-        .timeline-icon {
+        .story-arrow {
             font-size: 2rem;
-            min-width: 50px;
-            text-align: center;
+            color: #ccc;
+            transition: color 0.2s, transform 0.2s;
         }
 
-        .timeline-content h3 {
-            font-family: 'Gloria Hallelujah', cursive;
-            font-size: 1.3rem;
-            margin-bottom: 0.3rem;
-        }
-
-        .timeline-content p {
-            font-size: 1.2rem;
-            margin-bottom: 0;
-        }
-
-        /* Flag decoration */
-        .flags {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            font-size: 2.5rem;
-            margin: 0.5rem 0;
+        .story-card:hover .story-arrow {
+            color: var(--sea-blue);
+            transform: translateX(5px);
         }
 
         /* Footer */
@@ -389,391 +297,114 @@
             font-family: 'Caveat', cursive;
             font-size: 1.1rem;
             color: #888;
-            padding: 2rem;
-        }
-
-        .footer a {
-            color: var(--sea-blue);
-            text-decoration: none;
-        }
-
-        /* Scribble annotation */
-        .scribble {
-            font-family: 'Sue Ellen Francisco', cursive;
-            color: var(--selwyn-rage);
-            font-size: 1.3rem;
-            transform: rotate(-3deg);
-            display: inline-block;
+            padding: 3rem 2rem 2rem;
         }
 
         /* Responsive */
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .hero, .card, .countdown-section, .mood-meter { padding: 1.5rem; }
-            .container { padding: 1rem; gap: 1.5rem; }
-            .passport-stamp { width: 60px; height: 60px; top: 8px; right: 10px; }
-            .passport-stamp .big { font-size: 0.8rem; }
-            .passport-stamp span:not(.big) { display: none; }
+            .site-header h1 { font-size: 2.2rem; }
+            .story-card { padding: 1.5rem; flex-direction: column; text-align: center; }
+            .story-icon { min-width: auto; }
+            .story-arrow { display: none; }
             .rock-of-gibraltar { width: 300px; height: 200px; right: -30px; }
-        }
-
-        /* Animations */
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-5px) rotate(-1deg); }
-            75% { transform: translateX(5px) rotate(1deg); }
-        }
-
-        .shake-on-hover:hover {
-            animation: shake 0.4s ease-in-out;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-8px); }
-        }
-
-        .float { animation: float 3s ease-in-out infinite; }
-
-        /* Confetti burst on page */
-        .confetti-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 100;
-            overflow: hidden;
-        }
-
-        .confetti-piece {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            top: -20px;
-            opacity: 0;
         }
     </style>
 </head>
 <body>
 
 <div class="rock-of-gibraltar"></div>
-<div class="confetti-container" id="confetti"></div>
+
+<!-- Hamburger menu -->
+<button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+    <div class="nav-header">
+        <h2>El Vrada Chronicles</h2>
+        <p>Stories from the Rock</p>
+    </div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link active">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">All Stories</span>
+        </a>
+        <a href="gibraltar-border.html" class="nav-link">
+            <span class="nav-icon">🚧</span>
+            <span class="nav-label">
+                The Border Is Opening!
+                <span class="nav-date">April 10, 2026</span>
+            </span>
+        </a>
+        <a href="jury-service.html" class="nav-link">
+            <span class="nav-icon">⚖️</span>
+            <span class="nav-label">
+                Jury Service: E.I.F.
+                <span class="nav-date">February 10, 2026</span>
+            </span>
+        </a>
+    </div>
+</nav>
 
 <div class="container">
 
-    <!-- HERO -->
-    <div class="hero">
-        <div class="passport-stamp">
-            <span>HM GOV</span>
-            <span class="big">GIB</span>
-            <span>APRIL 10</span>
-        </div>
-        <div class="date-banner">📅 APRIL 10TH, 2026</div>
-        <div class="hero-countdown" id="hero-countdown">
-            <span class="hero-countdown-number" id="hero-days">--</span>
-            <span class="hero-countdown-label">days to go</span>
-        </div>
-        <h1>
-            The Gibraltar <span class="border-word">Border</span>
-            Is <span class="open-word">OPENING</span>!
-        </h1>
-        <div class="hero-subtitle">
-            ...and <span class="selwyn-name">El Vrada</span> is absolutely NOT having it.
-        </div>
-        <div class="flags" style="margin-top: 1rem;">
+    <div class="site-header">
+        <div class="flags">
             <span class="float" style="animation-delay: 0s;">🇬🇧</span>
-            <span class="float" style="animation-delay: 0.3s;">🚧</span>
-            <span class="float" style="animation-delay: 0.6s;">➡️</span>
-            <span class="float" style="animation-delay: 0.9s;">🚧</span>
-            <span class="float" style="animation-delay: 1.2s;">🇪🇸</span>
+            <span class="float" style="animation-delay: 0.4s;">🇬🇮</span>
+            <span class="float" style="animation-delay: 0.8s;">🇪🇸</span>
         </div>
+        <h1>El Vrada Chronicles</h1>
+        <p class="tagline">Tales of mild outrage from the Rock of Gibraltar</p>
     </div>
 
-    <!-- WHAT'S HAPPENING -->
-    <div class="card">
-        <span class="card-label">The Big News</span>
-        <h2>Wait... The Border Is Actually Opening?</h2>
-        <p>
-            After years of negotiations, Brexit drama, and enough red tape to wrap the Rock itself,
-            the <span class="highlight">Gibraltar-Spain border</span> is set to open freely on
-            <strong>April 10th, 2026</strong>. No more queues. No more passport stamping marathons.
-            Just... walk through. Like it's a normal border. Revolutionary stuff.
-        </p>
-        <p>
-            Tourists are thrilled. Locals are cautiously optimistic. <span class="red-text">El Vrada is furious.</span>
-        </p>
-        <div class="selwyn-quote shake-on-hover">
-            <span class="speaker">El Vrada:</span>
-            <p>"Open border?! OPEN?! Do you know how long I've spent perfecting my 'waiting at the border' face? YEARS, mate. Years of practice — WASTED."</p>
-        </div>
+    <div class="stories-grid">
+
+        <a href="gibraltar-border.html" class="story-card">
+            <span class="story-badge">LATEST</span>
+            <div class="story-icon">🚧</div>
+            <div class="story-info">
+                <div class="story-date">APRIL 10, 2026</div>
+                <h2>The Gibraltar Border Is OPENING!</h2>
+                <p>After years of Brexit drama, the border is set to open freely. El Vrada is absolutely NOT having it. Complaints include: parking, monkeys defecting to Spain, and knock-off Gucci belts in the Water Gardens.</p>
+            </div>
+            <span class="story-arrow">→</span>
+        </a>
+
+        <a href="jury-service.html" class="story-card">
+            <div class="story-icon">⚖️</div>
+            <div class="story-info">
+                <div class="story-date">FEBRUARY 10, 2026</div>
+                <h2>Jury Service: E.I.F.</h2>
+                <p>El Vrada gets summoned for jury duty on the Rock. Eight hours in a waiting room. One sad sandwich. One monkey. Zero justice served. Net profit: 72p. Everything Is Fucked.</p>
+            </div>
+            <span class="story-arrow">→</span>
+        </a>
+
     </div>
 
-    <!-- WHAT IT MEANS -->
-    <div class="card">
-        <span class="card-label">The Details</span>
-        <h2>What Does This Actually Mean?</h2>
-        <div class="timeline-item">
-            <div class="timeline-icon">🛂</div>
-            <div class="timeline-content">
-                <h3>No More Passport Checks</h3>
-                <p>The border between Gibraltar and Spain becomes part of the Schengen area. Free movement. Just walk on through.</p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">✈️</div>
-            <div class="timeline-content">
-                <h3>Airport Integration</h3>
-                <p>Gibraltar Airport will operate under Schengen rules. Flights to the EU without extra border checks.</p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">🛒</div>
-            <div class="timeline-content">
-                <h3>Trade & Commerce</h3>
-                <p>Smoother movement of goods. The days of border queues snaking back to the runway are over.</p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">😤</div>
-            <div class="timeline-content">
-                <h3>El Vrada's Blood Pressure</h3>
-                <p>Expected to reach new highs. Medical professionals have been notified.</p>
-            </div>
-        </div>
-        <div class="selwyn-quote shake-on-hover">
-            <span class="speaker">El Vrada:</span>
-            <p>"Schengen?! SCHENGEN?! Next you'll tell me they're putting a Mercadona on Main Street. Over my cold, sunburnt body."</p>
-        </div>
-    </div>
-
-    <!-- SELWYN'S CONCERNS -->
-    <div class="card">
-        <span class="card-label">Official Grievances</span>
-        <h2>El Vrada's Top 6 Complaints</h2>
-        <p class="stage-direction">*El Vrada pulls out a crumpled list from his back pocket*</p>
-
-        <div style="font-size: 1.3rem; line-height: 2;">
-            <p><strong>1.</strong> "I used to be able to blame the border queue for being late to everything. <span class="red-text">What's my excuse now?!</span>"</p>
-            <p><strong>2.</strong> "Spanish tourists are going to discover our chip shops. They'll never recover from the <span class="highlight">mushy peas</span>."</p>
-            <p><strong>3.</strong> "My nan smuggled a whole jamón across that border in '97. That was her LEGACY. Now anyone can just... carry ham?!"</p>
-            <p><strong>4.</strong> "They'll be parking on OUR side. Do you know how bad Gibraltar parking already is? <span class="red-text">DO YOU?!</span>"</p>
-            <p><strong>5.</strong> "The monkeys will leave. Mark my words. Once they see what's on offer in La Línea, they're GONE."</p>
-            <p><strong>6.</strong> "You know those lads who sell the sunglasses and handbags on the beaches in Spain? <span class="red-text">They'll be in the Water Gardens by TUESDAY.</span> Setting up right between the fountains. Lovely little stall next to the café. Fake Ray-Bans draped over the palm trees. Mark my words — you won't be able to have your lunch in peace without someone offering you a <span class="highlight">knock-off Gucci belt</span>."</p>
-        </div>
-
-        <div class="selwyn-quote shake-on-hover">
-            <span class="speaker">El Vrada:</span>
-            <p>"I'm not against progress. I'm against progress that personally inconveniences ME."</p>
-        </div>
-    </div>
-
-    <!-- COUNTDOWN -->
-    <div class="countdown-section">
-        <h2>⏰ Countdown to Border Opening</h2>
-        <div class="countdown-grid">
-            <div class="countdown-box">
-                <span class="number" id="days">--</span>
-                <span class="label">Days</span>
-            </div>
-            <div class="countdown-box">
-                <span class="number" id="hours">--</span>
-                <span class="label">Hours</span>
-            </div>
-            <div class="countdown-box">
-                <span class="number" id="minutes">--</span>
-                <span class="label">Minutes</span>
-            </div>
-            <div class="countdown-box">
-                <span class="number" id="seconds">--</span>
-                <span class="label">Seconds</span>
-            </div>
-        </div>
-        <p class="countdown-subtext" id="countdown-subtext">Until El Vrada's worst nightmare becomes reality</p>
-    </div>
-
-    <!-- MOOD METER -->
-    <div class="mood-meter">
-        <h2>📊 El Vrada's Current Mood</h2>
-        <div class="meter-bar">
-            <div class="meter-fill" id="moodFill"></div>
-        </div>
-        <div class="meter-labels">
-            <span>Mildly Annoyed</span>
-            <span>Proper Vexed</span>
-            <span>Apoplectic</span>
-            <span>Gone to La Línea<br>(out of spite)</span>
-        </div>
-        <p class="stage-direction" style="margin-top: 1rem;">*mood level increases as April 10th approaches*</p>
-    </div>
-
-    <!-- WHAT SELWYN WILL DO -->
-    <div class="card">
-        <span class="card-label">Contingency Plans</span>
-        <h2>El Vrada's Plan of Action</h2>
-        <p>
-            Despite his protests, sources close to El Vrada (everyone, because Gibraltar is tiny) report
-            that he has been spotted doing the following:
-        </p>
-        <div class="timeline-item">
-            <div class="timeline-icon">📋</div>
-            <div class="timeline-content">
-                <h3>Started a Petition</h3>
-                <p>"Keep the Queue" has 3 signatures. Two are El Vrada's. One is his mum's (under duress).</p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">🪧</div>
-            <div class="timeline-content">
-                <h3>Made Protest Signs</h3>
-                <p>Including the classic: <em>"THEY CAN TAKE OUR BORDER BUT THEY'LL NEVER TAKE OUR... actually what do we get out of the border queue?"</em></p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">🧳</div>
-            <div class="timeline-content">
-                <h3>Secretly Packed a Bag</h3>
-                <p>Has been seen eyeing up cheap flights to Málaga. "For reconnaissance ONLY," he insists.</p>
-            </div>
-        </div>
-        <div class="timeline-item">
-            <div class="timeline-icon">🍻</div>
-            <div class="timeline-content">
-                <h3>Emergency Pub Summit</h3>
-                <p>Called an urgent meeting at The Clipper. Agenda: "How do we stop this?" Minutes: "We can't." Adjourned to the bar.</p>
-            </div>
-        </div>
-        <div class="selwyn-quote shake-on-hover">
-            <span class="speaker">El Vrada:</span>
-            <p>"I'm not moving to Spain. I'm simply... strategically relocating to where the sangria is cheaper. It's COMPLETELY different."</p>
-        </div>
-    </div>
-
-    <!-- THE BRIGHT SIDE -->
-    <div class="card">
-        <span class="card-label">Silver Lining</span>
-        <h2>Even El Vrada Admits...</h2>
-        <p>
-            After a few pints and some gentle persuasion, even El Vrada conceded there might be
-            <em>some</em> upside to the open border:
-        </p>
-        <p>
-            🧀 Cheaper cheese from Spain<br>
-            ☀️ Easier beach trips to Getares<br>
-            ⛽ Cheaper petrol (he's been doing the maths — reluctantly)<br>
-            🎉 "More people to complain TO," as he put it
-        </p>
-        <p class="stage-direction">*A single tear rolls down El Vrada's cheek. Whether from joy or rage, nobody can tell.*</p>
-        <div class="selwyn-quote shake-on-hover">
-            <span class="speaker">El Vrada:</span>
-            <p>"Fine. FINE. But if ONE Spanish tourist asks me where the monkeys are, I'm building my own border. With a gate. And a very long queue. Out of PRINCIPLE."</p>
-        </div>
-    </div>
-
-    <!-- FOOTER -->
     <div class="footer">
         <p>🇬🇮 Made with love (and El Vrada's reluctant approval) 🇬🇮</p>
         <p style="margin-top: 0.5rem; font-size: 0.9rem;">
-            April 10th, 2026 — A historic day for Gibraltar.
-            <br>An emotionally devastating day for El Vrada.
+            More stories coming soon... assuming El Vrada doesn't flee to Spain first.
         </p>
     </div>
 
 </div>
 
 <script>
-    // Countdown to April 10th, 2026
-    function updateCountdown() {
-        const target = new Date('2026-04-10T00:00:00+01:00'); // Gibraltar is GMT+1
-        const now = new Date();
-        const diff = target - now;
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
 
-        if (diff <= 0) {
-            document.getElementById('days').textContent = '0';
-            document.getElementById('hours').textContent = '0';
-            document.getElementById('minutes').textContent = '0';
-            document.getElementById('seconds').textContent = '0';
-            document.getElementById('hero-days').textContent = '0';
-            document.querySelector('.hero-countdown-label').textContent = 'IT\'S OPEN!';
-            document.getElementById('countdown-subtext').textContent =
-                "IT'S HAPPENED. The border is open. Someone check on El Vrada.";
-            // Trigger confetti
-            launchConfetti();
-            return;
-        }
-
-        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-        document.getElementById('days').textContent = days;
-        document.getElementById('hours').textContent = hours;
-        document.getElementById('minutes').textContent = minutes;
-        document.getElementById('seconds').textContent = seconds;
-
-        // Update hero countdown
-        document.getElementById('hero-days').textContent = days;
-        document.querySelector('.hero-countdown-label').textContent = days === 1 ? 'day to go' : 'days to go';
-
-        // Update El Vrada's mood based on proximity
-        const totalDays = Math.floor((target - new Date('2026-01-01')) / (1000 * 60 * 60 * 24));
-        const elapsed = totalDays - days;
-        const moodPercent = Math.min(95, Math.max(15, (elapsed / totalDays) * 100));
-        document.getElementById('moodFill').style.width = moodPercent + '%';
+    function toggleNav() {
+        hamburger.classList.toggle('open');
+        navDrawer.classList.toggle('open');
+        navOverlay.classList.toggle('open');
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
-
-    // Confetti
-    function launchConfetti() {
-        const container = document.getElementById('confetti');
-        const colors = ['#CF142B', '#F1C40F', '#00247D', '#27AE60', '#E74C3C', '#fff'];
-
-        for (let i = 0; i < 80; i++) {
-            const piece = document.createElement('div');
-            piece.classList.add('confetti-piece');
-            piece.style.left = Math.random() * 100 + '%';
-            piece.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-            piece.style.width = Math.random() * 8 + 5 + 'px';
-            piece.style.height = Math.random() * 8 + 5 + 'px';
-            piece.style.borderRadius = Math.random() > 0.5 ? '50%' : '0';
-            piece.style.opacity = '1';
-
-            const duration = Math.random() * 3 + 2;
-            const delay = Math.random() * 2;
-            piece.style.animation = `confettiFall ${duration}s ${delay}s ease-out forwards`;
-
-            container.appendChild(piece);
-        }
-
-        // Add confetti animation dynamically
-        if (!document.getElementById('confetti-style')) {
-            const style = document.createElement('style');
-            style.id = 'confetti-style';
-            style.textContent = `
-                @keyframes confettiFall {
-                    0% { top: -20px; opacity: 1; transform: rotate(0deg) translateX(0); }
-                    100% { top: 110vh; opacity: 0; transform: rotate(720deg) translateX(${Math.random() > 0.5 ? '' : '-'}100px); }
-                }
-            `;
-            document.head.appendChild(style);
-        }
-    }
-
-    // Animate mood meter on scroll
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                updateCountdown(); // triggers mood update
-            }
-        });
-    }, { threshold: 0.5 });
-
-    const moodSection = document.querySelector('.mood-meter');
-    if (moodSection) observer.observe(moodSection);
+    hamburger.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', toggleNav);
 </script>
 
 </body>

@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Border Is OPENING! — El Vrada Chronicles</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Caveat:wght@400;700&family=Bangers&family=Sue+Ellen+Francisco&display=swap');
+
+        :root {
+            --paper: #FFFCF5;
+            --ink: #1a1a1a;
+            --red-pen: #C0392B;
+            --blue-pen: #2471A3;
+            --sea-blue: #2980B9;
+            --rock-grey: #4A4A4A;
+            --sand: #F5E6CA;
+            --sky: #87CEEB;
+            --lemon: #FCEFA6;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Indie Flower', cursive;
+            color: var(--ink);
+            overflow-x: hidden;
+            background: var(--paper);
+            min-height: 100vh;
+        }
+
+        /* ===== HAMBURGER NAV ===== */
+        .hamburger {
+            position: fixed;
+            top: 1.2rem;
+            left: 1.2rem;
+            z-index: 1000;
+            width: 44px;
+            height: 44px;
+            background: var(--paper);
+            border: 2.5px solid var(--ink);
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.15);
+            transition: transform 0.2s;
+        }
+        .hamburger:hover { transform: scale(1.08); }
+        .hamburger span {
+            display: block; width: 22px; height: 2.5px;
+            background: var(--ink); border-radius: 2px; transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+        .nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 998;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+
+        .nav-drawer {
+            position: fixed; top: 0; left: -320px; width: 300px; max-width: 85vw;
+            height: 100%; background: var(--paper); z-index: 999;
+            transition: left 0.3s ease; box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .nav-drawer.open { left: 0; }
+
+        .nav-header { padding: 2rem 1.5rem 1.5rem; border-bottom: 2px solid var(--ink); }
+        .nav-header h2 { font-family: 'Gloria Hallelujah', cursive; font-size: 1.5rem; }
+        .nav-header p { font-family: 'Caveat', cursive; font-size: 1rem; color: #888; margin-top: 0.3rem; }
+
+        .nav-links { padding: 1rem 0; flex: 1; }
+        .nav-link {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.5rem; text-decoration: none; color: var(--ink);
+            font-family: 'Indie Flower', cursive; font-size: 1.2rem;
+            transition: background 0.2s; border-left: 4px solid transparent;
+        }
+        .nav-link:hover { background: rgba(0,0,0,0.04); }
+        .nav-link.active { background: rgba(41,128,185,0.08); border-left-color: var(--sea-blue); font-weight: bold; }
+        .nav-link .nav-icon { font-size: 1.5rem; min-width: 30px; text-align: center; }
+        .nav-link .nav-label { line-height: 1.3; }
+        .nav-link .nav-date { font-family: 'Caveat', cursive; font-size: 0.85rem; color: #999; display: block; }
+
+        /* ===== STORY PAGE ===== */
+        .story-container {
+            max-width: 850px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 4rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            color: var(--sea-blue);
+            text-decoration: none;
+            margin-bottom: 1.5rem;
+            padding-left: 3rem;
+        }
+        .back-link:hover { text-decoration: underline; }
+
+        .story-header {
+            text-align: center;
+            padding: 1rem 2rem 2rem;
+        }
+        .story-header .story-date {
+            font-family: 'Bangers', cursive;
+            font-size: 1.1rem;
+            letter-spacing: 3px;
+            color: var(--red-pen);
+        }
+        .story-header h1 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2.8rem;
+            line-height: 1.15;
+            margin: 0.5rem 0;
+        }
+        .story-header .story-subtitle {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            color: #777;
+        }
+
+        /* Scenes */
+        .scene {
+            background: var(--paper);
+            border: 2.5px solid var(--ink);
+            border-radius: 2px 12px 2px 12px;
+            margin: 2rem 0;
+            padding: 2rem 2.5rem;
+            position: relative;
+            box-shadow: 5px 5px 0 rgba(0,0,0,0.08);
+        }
+
+        .scene::before {
+            content: attr(data-scene);
+            position: absolute;
+            top: -14px;
+            left: 20px;
+            background: var(--lemon);
+            border: 2px solid var(--ink);
+            padding: 0.1rem 0.8rem;
+            font-family: 'Bangers', cursive;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .scene h2 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px dashed #ddd;
+        }
+
+        .stage-direction {
+            font-family: 'Caveat', cursive;
+            font-style: italic;
+            color: #888;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+            padding-left: 1rem;
+            border-left: 3px solid #ddd;
+        }
+
+        .dialogue { margin: 0.8rem 0; line-height: 1.8; }
+        .dialogue .speaker {
+            font-family: 'Bangers', cursive;
+            letter-spacing: 1px;
+            font-size: 1.05rem;
+        }
+        .speaker-elvrada { color: var(--red-pen); }
+        .speaker-sarah { color: var(--blue-pen); }
+        .speaker-guard { color: #8E44AD; }
+        .speaker-spanish { color: #E67E22; }
+        .speaker-news { color: #27AE60; }
+
+        .dialogue .line {
+            font-size: 1.2rem;
+            padding-left: 1.5rem;
+        }
+
+        .emphasis {
+            font-family: 'Bangers', cursive;
+            font-size: 1.3rem;
+            letter-spacing: 1px;
+        }
+
+        .aside {
+            background: var(--lemon);
+            border: 2px dashed var(--ink);
+            padding: 1rem 1.5rem;
+            margin: 1.5rem 0;
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.3rem;
+            transform: rotate(-0.5deg);
+        }
+
+        .end-title {
+            text-align: center;
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2rem;
+            margin: 3rem 0 1rem;
+            padding: 1.5rem;
+            border-top: 3px solid var(--ink);
+            border-bottom: 3px solid var(--ink);
+        }
+
+        .story-nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 2px dashed #ddd;
+        }
+        .story-nav a {
+            font-family: 'Caveat', cursive;
+            font-size: 1.3rem;
+            color: var(--sea-blue);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .story-nav a:hover { text-decoration: underline; }
+
+        @media (max-width: 600px) {
+            .story-header h1 { font-size: 2rem; }
+            .scene { padding: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger menu -->
+<button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+    <div class="nav-header">
+        <h2>El Vrada Chronicles</h2>
+        <p>Stories from the Rock</p>
+    </div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">All Stories</span>
+        </a>
+        <a href="gibraltar-border.html" class="nav-link active">
+            <span class="nav-icon">🚧</span>
+            <span class="nav-label">
+                The Border Is Opening!
+                <span class="nav-date">April 10, 2026</span>
+            </span>
+        </a>
+        <a href="jury-service.html" class="nav-link">
+            <span class="nav-icon">⚖️</span>
+            <span class="nav-label">
+                Jury Service: E.I.F.
+                <span class="nav-date">February 10, 2026</span>
+            </span>
+        </a>
+    </div>
+</nav>
+
+<div class="story-container">
+
+    <a href="index.html" class="back-link">← Back to All Stories</a>
+
+    <div class="story-header">
+        <div class="story-date">APRIL 10, 2026</div>
+        <h1>🚧 The Gibraltar Border Is OPENING! 🚧</h1>
+        <p class="story-subtitle">A comedy sketch by El Vrada — in which absolutely nobody is happy about good news</p>
+    </div>
+
+    <!-- SCENE 1 -->
+    <div class="scene" data-scene="SCENE 1">
+        <h2>🛋️ The Living Room — Morning</h2>
+
+        <div class="stage-direction">El Vrada is sitting in his armchair reading the Gibraltar Chronicle. Sarah is scrolling her phone. The TV is on but nobody is watching it. A small Union Jack hangs slightly crooked on the wall.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-news">NEWS ANCHOR (on TV):</div>
+            <div class="line">"...and after years of negotiations, the UK and EU have finally reached a deal. The Gibraltar–Spain border will be fully open from next month, with free movement of people and goods—"</div>
+        </div>
+
+        <div class="stage-direction">El Vrada slowly lowers his newspaper. His left eye twitches.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">No.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">What do you mean "no"?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">I mean <span class="emphasis">NO</span>. No no no. Absolutely not. I didn't vote for this.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">You didn't vote at all. You said the polling station was "too far" — it was on the same street.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">It was uphill, Sarah. <em>Uphill.</em></div>
+        </div>
+    </div>
+
+    <!-- SCENE 2 -->
+    <div class="scene" data-scene="SCENE 2">
+        <h2>🚗 The Queue at the Border — Later</h2>
+
+        <div class="stage-direction">El Vrada and Sarah are in the car at the border. There is no queue. The barrier is up. Spanish guards are waving people through with big smiles.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(suspiciously) ...Why is it moving so fast?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">Because the border is open now. That was the whole point.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">But where's the queue? WHERE'S THE SUFFERING?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">Do you... <em>want</em> to be stuck in traffic for two hours?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">I want <em>ORDER</em>, Sarah. I want a man in a booth looking at my passport like I might be an international smuggler. I want him to squint at my photo and back at me three times. That's <em>RESPECT</em>.</div>
+        </div>
+
+        <div class="aside">📝 El Vrada's passport photo is from 2003. He had sideburns and a soul patch. He is unrecognisable.</div>
+    </div>
+
+    <!-- SCENE 3 -->
+    <div class="scene" data-scene="SCENE 3">
+        <h2>🇪🇸 La Línea — 5 Minutes Later</h2>
+
+        <div class="stage-direction">They've crossed into Spain. El Vrada looks deeply uncomfortable. Everything is fine.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">This doesn't feel right. We just... drove through. No stamps. No drama. Nothing.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">It's called progress.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">It's called <span class="emphasis">ANARCHY</span>.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">We literally just passed a police checkpoint.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">He waved at me, Sarah. <em>He waved.</em> Since when do border officials WAVE? What's next — a hug? A kiss on both cheeks? We're not in bloody France.</div>
+        </div>
+
+        <div class="stage-direction">A Spanish border guard walks over with a friendly smile.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-spanish">SPANISH GUARD:</div>
+            <div class="line">¡Buenos días! Welcome. No need to stop anymore — just drive straight through. Enjoy Spain!</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(whispering to Sarah) He's too happy. Something's going on. This is a trap.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">It's not a trap, it's a treaty.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Same thing.</div>
+        </div>
+    </div>
+
+    <!-- SCENE 4 -->
+    <div class="scene" data-scene="SCENE 4">
+        <h2>🛒 Mercadona — Shopping Trip</h2>
+
+        <div class="stage-direction">They are in Mercadona. El Vrada is holding Spanish olive oil like it's a live grenade.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Two euros. TWO EUROS for a litre of olive oil. Do you know what Morrison's charges? SEVEN QUID.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">So this is good, then?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">NO! Because now EVERYONE will come here. It'll be rammed. Full of people from the Rock buying cheap chorizo and boxed wine. They'll ruin it. Just like they ruined Morrisons.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">You ruined Morrisons. You knocked over the olive display and blamed it on a child.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">That child was in my way.</div>
+        </div>
+    </div>
+
+    <!-- SCENE 5 -->
+    <div class="scene" data-scene="SCENE 5">
+        <h2>🐒 The Apes' Den — Back on the Rock</h2>
+
+        <div class="stage-direction">They're driving back up. El Vrada spots a Barbary macaque sitting on a wall near the border.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(pointing) SEE? SEE THAT?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">It's a monkey.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">It's a monkey <em>near the border</em>. It's thinking about leaving. Open borders, Sarah — the monkeys will defect to Spain. And once they're gone? Gibraltar is FINISHED.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">The monkeys aren't going to—</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">They'll set up in Algeciras. Better weather, cheaper bananas. It's OVER.</div>
+        </div>
+
+        <div class="aside">📝 Legend has it that if the monkeys ever leave Gibraltar, the British will too. El Vrada treats this as constitutional law.</div>
+    </div>
+
+    <!-- SCENE 6 -->
+    <div class="scene" data-scene="SCENE 6">
+        <h2>🏠 The Living Room — That Evening</h2>
+
+        <div class="stage-direction">El Vrada is writing a strongly worded letter. He has already gone through three pens.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">Who are you writing to now?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">The Governor. The Chief Minister. The King, if I can find a stamp. Also, the monkey conservation people — they need a heads up.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">You're warning monkey conservationists about an open border?</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Someone has to, Sarah. Someone. Has. To.</div>
+        </div>
+
+        <div class="stage-direction">He licks an envelope aggressively. Pause.</div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">(quietly) ...The olive oil was good, though.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-sarah">SARAH:</div>
+            <div class="line">I know.</div>
+        </div>
+
+        <div class="dialogue">
+            <div class="speaker speaker-elvrada">EL VRADA:</div>
+            <div class="line">Don't tell anyone I said that.</div>
+        </div>
+    </div>
+
+    <div class="end-title">🇬🇮 END 🇬🇮</div>
+
+    <!-- Nav between stories -->
+    <div class="story-nav">
+        <a href="index.html">← All Stories</a>
+        <a href="jury-service.html">Jury Service →</a>
+    </div>
+
+</div>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+    function toggleNav() {
+        hamburger.classList.toggle('open');
+        navDrawer.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+    }
+    hamburger.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', toggleNav);
+</script>
+
+</body>
+</html>
