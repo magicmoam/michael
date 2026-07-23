@@ -1,0 +1,929 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feria Night — El Vrada Chaperones (Against His Will)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&family=Indie+Flower&family=Caveat:wght@400;700&family=Bangers&family=Sue+Ellen+Francisco&display=swap');
+
+        :root {
+            --rock-grey: #4A4A4A;
+            --gibraltar-blue: #1B3A5C;
+            --sea-blue: #2980B9;
+            --spanish-red: #C0392B;
+            --spanish-yellow: #F1C40F;
+            --brit-red: #CF142B;
+            --brit-blue: #00247D;
+            --sky: #87CEEB;
+            --paper: #FFFCF5;
+            --sand: #F5E6CA;
+            --ink: #1a1a1a;
+            --selwyn-rage: #E74C3C;
+            --cruzcampo-gold: #E8A317;
+            --feria-pink: #E91E8C;
+            --night-blue: #1a2440;
+            --sad-grey: #7f8c8d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Indie Flower', cursive;
+            color: var(--ink);
+            overflow-x: hidden;
+            background: linear-gradient(180deg, #2c3e6b 0%, #4a5a8a 25%, var(--sand) 55%, #E8D5B7 100%);
+            min-height: 100vh;
+        }
+
+        /* The Rock silhouette */
+        .rock-of-gibraltar {
+            position: fixed;
+            bottom: 0;
+            right: -50px;
+            width: 500px;
+            height: 350px;
+            background: linear-gradient(135deg, #6B7B8D 0%, #4A5568 40%, #2D3748 100%);
+            clip-path: polygon(30% 100%, 0% 60%, 5% 45%, 15% 30%, 25% 20%, 40% 8%, 55% 5%, 65% 8%, 75% 15%, 85% 30%, 95% 55%, 100% 100%);
+            opacity: 0.15;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Feria lights string */
+        .feria-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 0.4rem 0;
+            z-index: 50;
+            pointer-events: none;
+        }
+
+        .feria-bulb {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            animation: bulbGlow 1.6s ease-in-out infinite;
+        }
+
+        .feria-bulb:nth-child(4n+1) { background: var(--feria-pink); }
+        .feria-bulb:nth-child(4n+2) { background: var(--spanish-yellow); animation-delay: 0.4s; }
+        .feria-bulb:nth-child(4n+3) { background: var(--sea-blue); animation-delay: 0.8s; }
+        .feria-bulb:nth-child(4n+4) { background: #2ECC71; animation-delay: 1.2s; }
+
+        @keyframes bulbGlow {
+            0%, 100% { opacity: 1; box-shadow: 0 0 10px currentColor; }
+            50% { opacity: 0.3; box-shadow: none; }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 3rem 1.5rem 4rem;
+            gap: 2.5rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        /* Hero / Title */
+        .hero {
+            background: var(--paper);
+            width: 100%;
+            padding: 3rem 3rem 2.5rem;
+            border: 3px solid var(--ink);
+            border-radius: 4px 255px 6px 25px / 255px 8px 225px 5px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.12);
+            transform: rotate(-0.8deg);
+            text-align: center;
+            position: relative;
+            overflow: visible;
+        }
+
+        .hero:hover { transform: rotate(0deg) scale(1.01); transition: transform 0.3s; }
+
+        .date-banner {
+            display: inline-block;
+            background: var(--feria-pink);
+            color: white;
+            font-family: 'Bangers', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 3px;
+            padding: 0.4rem 1.5rem;
+            border-radius: 3px;
+            transform: rotate(-2deg);
+            margin-bottom: 1rem;
+            border: 2px solid var(--ink);
+        }
+
+        h1 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 3.2rem;
+            line-height: 1.15;
+            margin-bottom: 0.5rem;
+        }
+
+        h1 .feria-word { color: var(--feria-pink); }
+        h1 .nightmare-word { color: var(--selwyn-rage); }
+
+        .hero-subtitle {
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 2rem;
+            color: var(--selwyn-rage);
+            transform: rotate(1.5deg);
+            margin-top: 0.5rem;
+        }
+
+        .hero-subtitle .selwyn-name {
+            font-weight: bold;
+            text-decoration: underline wavy var(--selwyn-rage);
+            text-underline-offset: 5px;
+        }
+
+        /* Stamp decoration */
+        .passport-stamp {
+            position: absolute;
+            top: 15px;
+            right: 25px;
+            width: 90px;
+            height: 90px;
+            border: 4px solid var(--sad-grey);
+            border-radius: 50%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transform: rotate(15deg);
+            opacity: 0.6;
+            font-family: 'Bangers', cursive;
+            color: var(--sad-grey);
+            font-size: 0.7rem;
+            letter-spacing: 1px;
+            line-height: 1.2;
+            text-align: center;
+        }
+
+        .passport-stamp .big { font-size: 1.1rem; }
+
+        /* Card sections */
+        .card {
+            background: var(--paper);
+            width: 100%;
+            padding: 2.5rem 3rem;
+            border: 2.5px solid var(--ink);
+            border-radius: 3px 255px 4px 20px / 255px 6px 220px 4px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.1);
+            position: relative;
+            transition: transform 0.3s;
+        }
+
+        .card:nth-child(odd) { transform: rotate(0.6deg); }
+        .card:nth-child(even) { transform: rotate(-0.7deg); }
+        .card:hover { transform: rotate(0deg) scale(1.01); }
+
+        .card-label {
+            font-family: 'Sue Ellen Francisco', cursive;
+            font-size: 1.1rem;
+            color: var(--spanish-red);
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 0.3rem;
+        }
+
+        h2 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            padding-bottom: 0.4rem;
+            border-bottom: 2px solid var(--ink);
+            display: inline-block;
+        }
+
+        p {
+            font-size: 1.35rem;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .highlight {
+            background: linear-gradient(to right, rgba(241,196,15,0.5), rgba(241,196,15,0.3));
+            padding: 0 4px;
+            border-radius: 3px;
+        }
+
+        .red-text { color: var(--selwyn-rage); font-weight: bold; }
+        .blue-text { color: var(--sea-blue); }
+
+        /* El Vrada quotes */
+        .selwyn-quote {
+            background: #FFF5F5;
+            border-left: 4px solid var(--selwyn-rage);
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .selwyn-quote::before {
+            content: '😤';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            font-size: 1.5rem;
+        }
+
+        .selwyn-quote.sad-quote { background: #F4F6F7; border-left-color: var(--sad-grey); }
+        .selwyn-quote.sad-quote::before { content: '😔'; }
+
+        .selwyn-quote .speaker {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-weight: bold;
+            color: var(--selwyn-rage);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .selwyn-quote.sad-quote .speaker { color: var(--sad-grey); }
+
+        /* Jyzon quotes */
+        .jyzon-quote {
+            background: #F0F8FF;
+            border-left: 4px solid var(--sea-blue);
+            padding: 1.2rem 1.5rem;
+            margin: 1.2rem 0;
+            border-radius: 0 8px 8px 0;
+            position: relative;
+        }
+
+        .jyzon-quote::before {
+            content: '🧢';
+            position: absolute;
+            top: -12px;
+            left: -12px;
+            font-size: 1.5rem;
+        }
+
+        .jyzon-quote .speaker {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-weight: bold;
+            color: var(--sea-blue);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .selwyn-quote p, .jyzon-quote p {
+            font-size: 1.3rem;
+            margin-bottom: 0;
+            font-style: italic;
+        }
+
+        /* Stage direction */
+        .stage-direction {
+            font-family: 'Caveat', cursive;
+            font-style: italic;
+            color: #888;
+            text-align: center;
+            font-size: 1.2rem;
+            margin: 1rem 0;
+        }
+
+        /* Timeline */
+        .timeline-item {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            align-items: flex-start;
+        }
+
+        .timeline-icon {
+            font-size: 2rem;
+            min-width: 50px;
+            text-align: center;
+        }
+
+        .timeline-content h3 {
+            font-family: 'Gloria Hallelujah', cursive;
+            font-size: 1.3rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .timeline-content p {
+            font-size: 1.2rem;
+            margin-bottom: 0;
+        }
+
+        /* Cruzcampo counter */
+        .cruzcampo-section {
+            background: linear-gradient(135deg, var(--night-blue), #2c3e6b);
+            color: white;
+            width: 100%;
+            padding: 2.5rem 3rem;
+            border-radius: 12px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .cruzcampo-section h2 {
+            color: white;
+            border-bottom-color: rgba(255,255,255,0.4);
+            font-size: 1.8rem;
+        }
+
+        .beer-count {
+            font-family: 'Bangers', cursive;
+            font-size: 5rem;
+            color: var(--cruzcampo-gold);
+            line-height: 1;
+            display: block;
+            margin: 1rem 0 0.2rem;
+        }
+
+        .beer-count-label {
+            font-family: 'Caveat', cursive;
+            font-size: 1.4rem;
+            opacity: 0.85;
+        }
+
+        .beer-glasses {
+            font-size: 1.8rem;
+            margin: 1rem 0;
+            min-height: 2.4rem;
+            letter-spacing: 4px;
+            word-break: break-all;
+        }
+
+        .beer-commentary {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.25);
+            border-radius: 10px;
+            padding: 1.2rem 1.5rem;
+            margin: 1rem auto 1.5rem;
+            max-width: 600px;
+            font-size: 1.3rem;
+            font-style: italic;
+            min-height: 5.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .beer-btn {
+            font-family: 'Bangers', cursive;
+            font-size: 1.4rem;
+            letter-spacing: 2px;
+            background: var(--cruzcampo-gold);
+            color: var(--ink);
+            border: 3px solid var(--ink);
+            border-radius: 10px;
+            padding: 0.8rem 2rem;
+            cursor: pointer;
+            box-shadow: 4px 4px 0 rgba(0,0,0,0.3);
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .beer-btn:hover { transform: translateY(-2px); box-shadow: 6px 6px 0 rgba(0,0,0,0.3); }
+        .beer-btn:active { transform: translateY(2px); box-shadow: 2px 2px 0 rgba(0,0,0,0.3); }
+        .beer-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+
+        .beer-subtext {
+            font-family: 'Caveat', cursive;
+            font-size: 1.2rem;
+            opacity: 0.7;
+            margin-top: 1rem;
+        }
+
+        /* The sad fence section */
+        .fence-section {
+            background: linear-gradient(180deg, #34495E 0%, #2C3E50 100%);
+            color: #ECF0F1;
+            width: 100%;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 8px 8px 0 rgba(0,0,0,0.25);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .fence-section h2 {
+            color: #ECF0F1;
+            border-bottom-color: rgba(255,255,255,0.3);
+        }
+
+        .fence-art {
+            font-family: monospace;
+            font-size: 1.1rem;
+            line-height: 1.3;
+            color: rgba(236,240,241,0.35);
+            white-space: pre;
+            margin: 1.5rem 0;
+            overflow-x: auto;
+        }
+
+        .fence-section p { color: rgba(236,240,241,0.85); }
+
+        .fence-section .stage-direction { color: rgba(236,240,241,0.55); }
+
+        .single-tear {
+            font-size: 2.5rem;
+            display: inline-block;
+            animation: tearFall 4s ease-in infinite;
+        }
+
+        @keyframes tearFall {
+            0% { transform: translateY(0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { transform: translateY(15px); opacity: 1; }
+            100% { transform: translateY(25px); opacity: 0; }
+        }
+
+        /* Flag decoration */
+        .flags {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            font-size: 2.5rem;
+            margin: 0.5rem 0;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            font-family: 'Caveat', cursive;
+            font-size: 1.1rem;
+            color: #888;
+            padding: 2rem;
+        }
+
+        /* Scribble annotation */
+        .scribble {
+            font-family: 'Sue Ellen Francisco', cursive;
+            color: var(--selwyn-rage);
+            font-size: 1.3rem;
+            transform: rotate(-3deg);
+            display: inline-block;
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .hero, .card, .cruzcampo-section, .fence-section { padding: 1.5rem; }
+            .container { padding: 2.5rem 1rem 3rem; gap: 1.5rem; }
+            .passport-stamp { width: 60px; height: 60px; top: 8px; right: 10px; }
+            .passport-stamp .big { font-size: 0.8rem; }
+            .passport-stamp span:not(.big) { display: none; }
+            .rock-of-gibraltar { width: 300px; height: 200px; right: -30px; }
+            .fence-art { font-size: 0.7rem; }
+        }
+
+        /* Animations */
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px) rotate(-1deg); }
+            75% { transform: translateX(5px) rotate(1deg); }
+        }
+
+        .shake-on-hover:hover {
+            animation: shake 0.4s ease-in-out;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        .float { animation: float 3s ease-in-out infinite; }
+
+        /* ===== HAMBURGER NAV ===== */
+        .hamburger {
+            position: fixed; top: 1.2rem; left: 1.2rem; z-index: 1000;
+            width: 44px; height: 44px; background: var(--paper);
+            border: 2.5px solid var(--ink); border-radius: 8px; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; gap: 5px;
+            box-shadow: 3px 3px 0 rgba(0,0,0,0.15); transition: transform 0.2s;
+        }
+        .hamburger:hover { transform: scale(1.08); }
+        .hamburger span {
+            display: block; width: 22px; height: 2.5px;
+            background: var(--ink); border-radius: 2px; transition: all 0.3s;
+        }
+        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.open span:nth-child(2) { opacity: 0; }
+        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+        .nav-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4); z-index: 998;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+        }
+        .nav-overlay.open { opacity: 1; pointer-events: all; }
+        .nav-drawer {
+            position: fixed; top: 0; left: -320px; width: 300px; max-width: 85vw;
+            height: 100%; background: var(--paper); z-index: 999;
+            transition: left 0.3s ease; box-shadow: 5px 0 20px rgba(0,0,0,0.2);
+            display: flex; flex-direction: column; overflow-y: auto;
+        }
+        .nav-drawer.open { left: 0; }
+        .nav-header { padding: 2rem 1.5rem 1.5rem; border-bottom: 2px solid var(--ink); }
+        .nav-header h2 { font-family: 'Gloria Hallelujah', cursive; font-size: 1.5rem; display: block; border-bottom: none; }
+        .nav-header p { font-family: 'Caveat', cursive; font-size: 1rem; color: #888; margin-top: 0.3rem; }
+        .nav-links { padding: 1rem 0; flex: 1; }
+        .nav-link {
+            display: flex; align-items: center; gap: 1rem;
+            padding: 1rem 1.5rem; text-decoration: none; color: var(--ink);
+            font-family: 'Indie Flower', cursive; font-size: 1.2rem;
+            transition: background 0.2s; border-left: 4px solid transparent;
+        }
+        .nav-link:hover { background: rgba(0,0,0,0.04); }
+        .nav-link.active { background: rgba(41,128,185,0.08); border-left-color: var(--sea-blue); font-weight: bold; }
+        .nav-link .nav-icon { font-size: 1.5rem; min-width: 30px; text-align: center; }
+        .nav-link .nav-label { line-height: 1.3; }
+        .nav-link .nav-date { font-family: 'Caveat', cursive; font-size: 0.85rem; color: #999; display: block; }
+    </style>
+</head>
+<body>
+
+<!-- Hamburger menu -->
+<button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+</button>
+<div class="nav-overlay" id="navOverlay"></div>
+<nav class="nav-drawer" id="navDrawer">
+    <div class="nav-header">
+        <h2>El Vrada Chronicles</h2>
+        <p>Stories from the Rock</p>
+    </div>
+    <div class="nav-links">
+        <a href="index.html" class="nav-link">
+            <span class="nav-icon">🏠</span>
+            <span class="nav-label">All Stories</span>
+        </a>
+        <a href="feria-night.html" class="nav-link active">
+            <span class="nav-icon">🎡</span>
+            <span class="nav-label">
+                Feria Night
+                <span class="nav-date">July 23, 2026</span>
+            </span>
+        </a>
+        <a href="escooter-register.html" class="nav-link">
+            <span class="nav-icon">🛴</span>
+            <span class="nav-label">
+                The Big Reveal
+                <span class="nav-date">May 30, 2026</span>
+            </span>
+        </a>
+        <a href="gibraltar-border.html" class="nav-link">
+            <span class="nav-icon">🚧</span>
+            <span class="nav-label">
+                The Border Is Opening!
+                <span class="nav-date">April 10, 2026</span>
+            </span>
+        </a>
+        <a href="jury-service.html" class="nav-link">
+            <span class="nav-icon">⚖️</span>
+            <span class="nav-label">
+                Jury Service: E.I.F.
+                <span class="nav-date">February 10, 2026</span>
+            </span>
+        </a>
+    </div>
+</nav>
+
+<div class="feria-lights" id="feriaLights"></div>
+<div class="rock-of-gibraltar"></div>
+
+<div class="container">
+
+    <!-- HERO -->
+    <div class="hero">
+        <div class="passport-stamp">
+            <span>NO STAMP</span>
+            <span class="big">R.I.P.</span>
+            <span>THE QUEUE</span>
+        </div>
+        <div class="date-banner">🎡 FERIA NIGHT — JULY 23, 2026</div>
+        <h1>
+            Jyzon Is Going To The <span class="feria-word">FERIA</span>
+        </h1>
+        <div class="hero-subtitle">
+            ...and <span class="selwyn-name">El Vrada</span> is chaperoning. Against his will. With Cruzcampo.
+        </div>
+        <div class="flags" style="margin-top: 1rem;">
+            <span class="float" style="animation-delay: 0s;">🇬🇮</span>
+            <span class="float" style="animation-delay: 0.3s;">🎡</span>
+            <span class="float" style="animation-delay: 0.6s;">🍺</span>
+            <span class="float" style="animation-delay: 0.9s;">🎪</span>
+            <span class="float" style="animation-delay: 1.2s;">🇪🇸</span>
+        </div>
+    </div>
+
+    <!-- THE BORDER OPENED -->
+    <div class="card">
+        <span class="card-label">Previously, On El Vrada</span>
+        <h2>Well... It Happened. The Border Is OPEN.</h2>
+        <p>
+            April 10th came. April 10th went. The <span class="highlight">Gibraltar-Spain border</span>
+            opened, exactly as threatened. No queue. No passport stamp. No fence. You just...
+            <em>walk into Spain</em>. Like it's allowed. Like it's <span class="red-text">NORMAL</span>.
+        </p>
+        <p>
+            El Vrada has had three months to process this. He has not processed this.
+        </p>
+        <div class="selwyn-quote shake-on-hover">
+            <span class="speaker">El Vrada:</span>
+            <p>"This is it, mate. This is the selling of our country. SOLD. Gift-wrapped. What has Picardo DONE?! I want to see the receipt. I want a REFUND."</p>
+        </div>
+        <div class="selwyn-quote shake-on-hover">
+            <span class="speaker">El Vrada:</span>
+            <p>"That border wasn't a queue, it was a FILTER. Now anything can just wander in. And worse — anything can wander OUT."</p>
+        </div>
+    </div>
+
+    <!-- JYZON'S ANNOUNCEMENT -->
+    <div class="card">
+        <span class="card-label">The Announcement</span>
+        <h2>"Dad, I'm Going To The Feria With The Boys"</h2>
+        <p>
+            Enter <span class="highlight">Jyzon</span>. Sixteen. El Vrada's pride, joy, and primary
+            source of blood pressure. It's Feria week in La Línea — lights, casetas, churros, fairground
+            rides assembled by men who looked confident enough — and Jyzon's whole squad is going.
+        </p>
+        <div class="jyzon-quote shake-on-hover">
+            <span class="speaker">Jyzon:</span>
+            <p>"Dad, it's literally a ten minute walk now. There's not even a border. Everyone's going. It's FINE."</p>
+        </div>
+        <p>
+            And there it is. <span class="red-text">Every parent's nightmare.</span> For El Vrada's entire
+            life, the border meant one beautiful thing: <span class="highlight">your kids couldn't get far</span>.
+            The Rock was a playpen with a frontier for a fence. Jyzon at a loose end? He's at the Piazza.
+            He's at Casemates. He is, at absolute worst, at Eastern Beach.
+        </p>
+        <p>
+            Not any more. Now "out with my friends" has a radius that includes <em>the entire Iberian Peninsula</em>.
+        </p>
+        <div class="selwyn-quote shake-on-hover">
+            <span class="speaker">El Vrada:</span>
+            <p>"That border was the best babysitter in EUROPE. Free. Reliable. Open 24 hours. And Picardo gave it away. Where's the sad face on the news for the PARENTS, eh? WHERE?"</p>
+        </div>
+    </div>
+
+    <!-- THE ALL-WEEK DENIAL -->
+    <div class="card">
+        <span class="card-label">The Week of Denial</span>
+        <h2>"I'm NOT Going To The Feria" — A Week In Quotes</h2>
+        <p>
+            All week, El Vrada has been telling anyone who would listen — and several people who
+            actively tried not to — that he would NOT be going to the Feria.
+        </p>
+        <div class="timeline-item">
+            <div class="timeline-icon">📅</div>
+            <div class="timeline-content">
+                <h3>Monday, at the kiosk</h3>
+                <p>"Feria? FERIA?! I'm not setting foot in it. It's a trap with churros, mate."</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">📅</div>
+            <div class="timeline-content">
+                <h3>Tuesday, at The Clipper</h3>
+                <p>"You lot go. Enjoy your flamenco. I'll be here. Defending what's left of the Rock."</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">📅</div>
+            <div class="timeline-content">
+                <h3>Wednesday, to his mum</h3>
+                <p>"I'd rather do jury service again, Mum. AGAIN. That's how serious I am."</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">📅</div>
+            <div class="timeline-content">
+                <h3>Thursday, in the group chat</h3>
+                <p>"Not going. Don't ask. 🚫🎡" <em>(seen by 14, replied to by 0 — they all knew)</em></p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">🎡</div>
+            <div class="timeline-content">
+                <h3>Tonight, 8:47pm</h3>
+                <p>El Vrada, in his good shirt, ironed by his mum, walking across the airfield towards the lights of La Línea. Not going. Absolutely not going. Currently going.</p>
+            </div>
+        </div>
+        <div class="selwyn-quote shake-on-hover">
+            <span class="speaker">El Vrada:</span>
+            <p>"I'm not GOING going. I'm chaperoning. It's a security operation. There's a DIFFERENCE, and the difference is that I don't want to be here."</p>
+        </div>
+    </div>
+
+    <!-- THE CRUZCAMPO COUNTER -->
+    <div class="cruzcampo-section">
+        <h2>🍺 The Chaperone's Burden: A Cruzcampo Count</h2>
+        <p style="font-size: 1.25rem; opacity: 0.85;">
+            El Vrada is on duty. Watching Jyzon from a caseta at a responsible distance.
+            Each Cruzcampo is <em>strictly operational</em>. Tap to pour the man another — he's been FORCED.
+        </p>
+        <span class="beer-count" id="beerCount">0</span>
+        <span class="beer-count-label">of 15 Cruzcampos (for surveillance purposes)</span>
+        <div class="beer-glasses" id="beerGlasses"></div>
+        <div class="beer-commentary" id="beerCommentary">*El Vrada sits down, arms crossed, radiating disapproval at an entire fairground*</div>
+        <button class="beer-btn" id="beerBtn">ANOTHER CRUZCAMPO 🍺</button>
+        <p class="beer-subtext" id="beerSubtext">He didn't even want to come.</p>
+    </div>
+
+    <!-- THE SURVEILLANCE REPORT -->
+    <div class="card">
+        <span class="card-label">Field Notes</span>
+        <h2>The Official Chaperone Log</h2>
+        <div class="timeline-item">
+            <div class="timeline-icon">🕵️</div>
+            <div class="timeline-content">
+                <h3>21:02 — Visual contact established</h3>
+                <p>Jyzon and friends at the bumper cars. Subject appears to be... having fun. Suspicious.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">🍢</div>
+            <div class="timeline-content">
+                <h3>21:38 — Perimeter breach (pinchitos)</h3>
+                <p>El Vrada leaves post to acquire pinchitos. "Reconnaissance of the food situation." Returns with three. Shares zero.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">🎶</div>
+            <div class="timeline-content">
+                <h3>22:15 — Foot detected tapping</h3>
+                <p>A sevillana comes on. El Vrada's foot begins moving of its own accord. He glares at it. It continues.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">🧸</div>
+            <div class="timeline-content">
+                <h3>22:51 — Shooting gallery incident</h3>
+                <p>El Vrada spends €23 winning a giant teddy "for surveillance cover." The teddy is now called Winston. Winston is non-negotiable.</p>
+            </div>
+        </div>
+        <div class="timeline-item">
+            <div class="timeline-icon">📸</div>
+            <div class="timeline-content">
+                <h3>23:20 — Compromising evidence</h3>
+                <p>Jyzon's mate posts a story of El Vrada mid-sevillana, Cruzcampo in one hand, Winston in the other. Caption: "el vrada UNITS 🔥". It has 400 views.</p>
+            </div>
+        </div>
+        <div class="selwyn-quote shake-on-hover">
+            <span class="speaker">El Vrada:</span>
+            <p>"DELETE that. I was blending IN. That's chapter one of the chaperone handbook, mate. Camouflage."</p>
+        </div>
+        <div class="jyzon-quote shake-on-hover">
+            <span class="speaker">Jyzon:</span>
+            <p>"Dad you've been here longer than me. My friends went home an HOUR ago."</p>
+        </div>
+    </div>
+
+    <!-- THE FENCE THAT ONCE WAS -->
+    <div class="fence-section">
+        <span class="card-label" style="color: rgba(236,240,241,0.6);">2:00 AM</span>
+        <h2>The Fence That Once Was</h2>
+        <p>
+            The lights are going out, one caseta at a time. Jyzon walks ahead with Winston under his arm,
+            texting someone called "M 🌹" (a separate nightmare, filed for later). And El Vrada stops.
+        </p>
+        <p>
+            Right there. Where the fence used to be. Fifteen Cruzcampos deep, he stands at the line
+            only he can still see, and looks across it.
+        </p>
+        <div class="fence-art">
+   x---x---x---x---x---x---x---x---x---x
+   |   |   |   |   |   |   |   |   |   |
+   x---x---x---x---x---x---x---x---x---x
+   |   |   |   |   |   |   |   |   |   |
+        ( artist's impression — it's not there any more )</div>
+        <p>
+            No queue to complain about. No guard to nod at. No stamp. Just a warm night breeze moving
+            freely — <em>freely</em> — between two countries, like it doesn't even know what it's crossing.
+        </p>
+        <p class="stage-direction">*He puts one hand up, gently, against a chain-link fence that is not there. It hasn't been there since April.*</p>
+        <div class="selwyn-quote sad-quote">
+            <span class="speaker">El Vrada:</span>
+            <p>"You were a terrible fence. Ugly. Slow. Made me miss two weddings and a christening. ...I miss you every day."</p>
+        </div>
+        <p class="stage-direction">
+            <span class="single-tear">😢</span><br>
+            *A single tear. This time, everybody can tell exactly what it's from.*
+        </p>
+        <div class="jyzon-quote" style="background: rgba(240,248,255,0.1); border-left-color: rgba(41,128,185,0.6);">
+            <span class="speaker" style="color: #85C1E9;">Jyzon:</span>
+            <p>"Dad. You're hugging the air. Come on, Mum's waiting up."</p>
+        </div>
+        <div class="selwyn-quote sad-quote">
+            <span class="speaker">El Vrada:</span>
+            <p>"One minute, son. Show some respect. ...People QUEUED here."</p>
+        </div>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+        <p>🇬🇮 Made with love (and El Vrada's reluctant approval) 🇬🇮</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">
+            July 23, 2026 — A magical night at the Feria for Jyzon.
+            <br>Fifteen Cruzcampos and one invisible fence for El Vrada.
+        </p>
+    </div>
+
+</div>
+
+<script>
+    // Feria lights
+    (function () {
+        const strip = document.getElementById('feriaLights');
+        const bulbs = Math.floor(window.innerWidth / 40);
+        for (let i = 0; i < bulbs; i++) {
+            const b = document.createElement('div');
+            b.className = 'feria-bulb';
+            strip.appendChild(b);
+        }
+    })();
+
+    // Cruzcampo counter
+    const beerCommentary = [
+        "*El Vrada sits down, arms crossed, radiating disapproval at an entire fairground*",
+        "\"One. ONE. Purely to justify the seat, mate. This is a stakeout.\"",
+        "\"The second one came with the pinchitos. That's not drinking, that's PAIRING.\"",
+        "\"Right, three. Three is still surveillance. Guards drink coffee, I drink Cruzcampo. Same thing.\"",
+        "\"You know what, it's actually a decent beer. I HATE that it's a decent beer.\"",
+        "\"Five. Look at Jyzon on the bumper cars. He's terrible at it. Gets that from his mother.\"",
+        "\"Six, and I'll tell you what — the fence never would've let this happen. The fence PROTECTED me from Cruzcampo.\"",
+        "\"Seven. This song is alright actually. NOT that I'm enjoying myself. My foot is acting alone.\"",
+        "\"Eight?! Who's counting anyway. YOU'RE counting. Stop counting. This is a private operation.\"",
+        "\"Nine. I just did a lap of the caseta 'checking exits'. The waiter called me 'jefe'. I LIKE him.\"",
+        "\"DIEZ, as they say on THIS side. Which I'm on. Voluntarily?? No. Chaperonically.\"",
+        "\"Eleven. Told the lads at the next table about the fence. They bought me this one. GOOD people, the enemy.\"",
+        "\"Twelve. I have won a teddy. His name is Winston. He understands me better than anyone at this table.\"",
+        "\"Thirteen... you know who never sold OUR country? Winston. Winston would've kept the fence.\"",
+        "\"Fourteen. I taught the whole caseta the Llanito for 'this is an outrage'. We sang it. There were harmonies.\"",
+        "\"Fifteen. FIFTEEN. Mission... accomplished? Where's Jyzon. WHERE'S JYZON. Oh. He's right there. Good lad. Best lad on the Rock.\""
+    ];
+
+    const beerSubtexts = [
+        "He didn't even want to come.",
+        "Strictly operational.",
+        "Still doesn't want to be here.",
+        "Remains, officially, against all of this.",
+        "Under protest. Delicious, delicious protest.",
+        "The surveillance is going great.",
+        "The fence would be so disappointed.",
+        "His foot is dancing. He is not.",
+        "Stop counting. (Keep clicking.)",
+        "'Jefe.' He's still smiling about it.",
+        "Chaperonically. It's a word now.",
+        "Fraternising with the enemy (they're lovely).",
+        "Winston has been briefed on the situation.",
+        "Winston agrees with everything he says.",
+        "There were harmonies.",
+        "Someone walk them BOTH home."
+    ];
+
+    let beers = 0;
+    const beerBtn = document.getElementById('beerBtn');
+    const beerCount = document.getElementById('beerCount');
+    const beerGlasses = document.getElementById('beerGlasses');
+    const commentaryEl = document.getElementById('beerCommentary');
+    const subtextEl = document.getElementById('beerSubtext');
+
+    beerBtn.addEventListener('click', () => {
+        if (beers >= 15) return;
+        beers++;
+        beerCount.textContent = beers;
+        beerGlasses.textContent = '🍺'.repeat(beers);
+        commentaryEl.textContent = beerCommentary[beers];
+        subtextEl.textContent = beerSubtexts[beers];
+        if (beers >= 15) {
+            beerBtn.textContent = 'HE IS DONE. ESO ES. 🧸';
+            beerBtn.disabled = true;
+        }
+    });
+</script>
+
+<script>
+    const hamburger = document.getElementById('hamburger');
+    const navDrawer = document.getElementById('navDrawer');
+    const navOverlay = document.getElementById('navOverlay');
+    function toggleNav() {
+        hamburger.classList.toggle('open');
+        navDrawer.classList.toggle('open');
+        navOverlay.classList.toggle('open');
+    }
+    hamburger.addEventListener('click', toggleNav);
+    navOverlay.addEventListener('click', toggleNav);
+</script>
+
+</body>
+</html>
